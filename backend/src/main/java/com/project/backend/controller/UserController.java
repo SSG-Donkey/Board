@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/hello")
     public String hello1() {
-        return "hello";
+        return "hello world!";
     }
 
     @GetMapping("/getUsers")
