@@ -2,6 +2,9 @@ package com.project.backend.controller;
 
 import com.project.backend.dto.CommentDto;
 import com.project.backend.service.CommentService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,7 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/selectCommentByPostNo")
-    public ResponseEntity<CommentDto> selectCommentByPostNo(@RequestParam String postNo){
+    public ResponseEntity<List<CommentDto>> selectCommentByPostNo(@RequestParam String postNo){
         return new ResponseEntity<>(commentService.selectCommentByPostNo(postNo), HttpStatus.OK);
     }
 
