@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.backend.mappers.CommentMapper">
+
+
+    <select id="selectCommentByPostNo" parameterType="String" resultType="com.project.backend.dto.CommentDto">
+        SELECT comment_no, user_no, post_no, comment_content, comment_date, is_chosen
+        FROM comment
+        WHERE post_no = #{post_no}
+    </select>
+
+    
+
+
+
+
+
+</mapper>
