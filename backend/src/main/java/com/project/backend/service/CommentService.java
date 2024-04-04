@@ -15,4 +15,22 @@ public class CommentService {
 
         return res;
     }
+
+    public int insertComment(CommentDto commentDto){
+        int res = commentMapper.insertComment(commentDto);
+
+        return res;
+    }
+
+    public int updateComment(CommentDto commentDto){
+        int res = commentMapper.updateComment(commentDto);
+
+        return res;
+    }
+
+    public int deleteComment(CommentDto commentDto){
+        int res = commentMapper.deleteComment(commentDto);
+
+        return res;
+    }
 }

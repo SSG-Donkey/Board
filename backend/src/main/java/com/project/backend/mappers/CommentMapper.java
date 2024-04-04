@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommentMapper {
 
     CommentDto selectCommentByPostNo(String postNo);
+
+    int insertComment(CommentDto commentDto);
+    int updateComment(CommentDto commentDto);
+    int deleteComment(CommentDto commentDto);
 }
