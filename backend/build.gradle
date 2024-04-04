@@ -36,13 +36,16 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
 	// testImplementation 'org.springframework.security:spring-security-test'
+	
+	//암호화
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 }
 
 dependencyManagement {
