@@ -23,6 +23,11 @@ public class PostController {
     @GetMapping("/getAllPost")
     public ResponseEntity<List<PostDto>> getAllPosts() {
         List<PostDto> posts = postService.find_post_All();
+
+        for (PostDto postDto : posts) {
+            System.out.println(postDto.getPostFile());
+        }
+
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 

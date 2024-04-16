@@ -12,14 +12,15 @@ public class PostService {
     PostMapper postMapper;
 
     public List<PostDto> find_post_All() {
-        System.out.println("-----------------여기 도착--------------");
         List<PostDto> res = postMapper.find_post_All();
-        System.out.println(res);
-        System.out.println("디버깅");
-        for (PostDto temp : res) {
-            System.out.println(temp.getPostFile());
+
+        //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
+        for (PostDto post : res) {
+            if( null == post.getPostFile())
+            {
+                post.setPostFile("https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png");
+            }   
         }
-        System.out.println("디버깅 끝");
         return res;
     }
 
