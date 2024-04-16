@@ -1,0 +1,60 @@
+INFO  24-04-05 09:01:49[restartedMain] [BackendApplication:55] - Starting BackendApplication using Java 17.0.10 on DESKTOP-F632K0P with PID 7936 (C:\Users\TECH3-12\Desktop\SHINSEGAE-final\backend\build\classes\java\main started by TECH3-12 in C:\Users\TECH3-12\Desktop\SHINSEGAE-final)
+INFO  24-04-05 09:01:49[restartedMain] [BackendApplication:631] - No active profile set, falling back to 1 default profile: "default"
+INFO  24-04-05 09:01:49[restartedMain] [DevToolsPropertyDefaultsPostProcessor:255] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+INFO  24-04-05 09:01:49[restartedMain] [DevToolsPropertyDefaultsPostProcessor:255] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+INFO  24-04-05 09:01:50[restartedMain] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+INFO  24-04-05 09:01:50[restartedMain] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 7 ms. Found 0 JDBC repository interfaces.
+DEBUG 24-04-05 09:01:50[restartedMain] [LogFactory:109] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+INFO  24-04-05 09:01:50[restartedMain] [EnableEncryptablePropertiesBeanFactoryPostProcessor:40] - Post-processing PropertySource instances
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:76] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:76] - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:76] - Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+INFO  24-04-05 09:01:50[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource devtools [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+INFO  24-04-05 09:01:50[restartedMain] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$ea5e0826] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+INFO  24-04-05 09:01:51[restartedMain] [AnnotationActionEndpointMapping:239] - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+INFO  24-04-05 09:01:51[restartedMain] [DefaultLazyPropertyFilter:31] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+INFO  24-04-05 09:01:51[restartedMain] [DefaultLazyPropertyResolver:35] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+INFO  24-04-05 09:01:51[restartedMain] [DefaultLazyPropertyDetector:35] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+INFO  24-04-05 09:01:51[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+INFO  24-04-05 09:01:51[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+INFO  24-04-05 09:01:51[restartedMain] [StandardService:173] - Starting service [Tomcat]
+INFO  24-04-05 09:01:51[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.73]
+INFO  24-04-05 09:01:51[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
+INFO  24-04-05 09:01:51[restartedMain] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 1631 ms
+INFO  24-04-05 09:01:51[restartedMain] [DefaultLazyEncryptor:32] - Found Custom Encryptor Bean org.jasypt.encryption.pbe.PooledPBEStringEncryptor@792ede23 with name: jasyptStringEncryptor
+WARN  24-04-05 09:01:52[restartedMain] [ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration:103] - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+INFO  24-04-05 09:01:52[restartedMain] [HikariDataSource:110] - HikariPool-1 - Starting...
+INFO  24-04-05 09:01:52[restartedMain] [HikariDataSource:123] - HikariPool-1 - Start completed.
+INFO  24-04-05 09:01:52[restartedMain] [OptionalLiveReloadServer:59] - LiveReload server is running on port 35729
+INFO  24-04-05 09:01:52[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+INFO  24-04-05 09:01:52[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+INFO  24-04-05 09:01:52[restartedMain] [RefreshScopeRefreshedEventListener:47] - Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+INFO  24-04-05 09:01:52[restartedMain] [CachingDelegateEncryptablePropertySource:55] - Property Source systemProperties refreshed
+INFO  24-04-05 09:01:52[restartedMain] [CachingDelegateEncryptablePropertySource:55] - Property Source systemEnvironment refreshed
+INFO  24-04-05 09:01:52[restartedMain] [CachingDelegateEncryptablePropertySource:55] - Property Source random refreshed
+INFO  24-04-05 09:01:52[restartedMain] [CachingDelegateEncryptablePropertySource:55] - Property Source Config resource 'class path resource [application.properties]' via location 'optional:classpath:/' refreshed
+INFO  24-04-05 09:01:52[restartedMain] [CachingDelegateEncryptablePropertySource:55] - Property Source devtools refreshed
+INFO  24-04-05 09:01:52[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource server.ports [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+INFO  24-04-05 09:01:52[restartedMain] [EncryptablePropertySourceConverter:76] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+INFO  24-04-05 09:01:52[restartedMain] [EncryptablePropertySourceConverter:76] - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+INFO  24-04-05 09:01:52[restartedMain] [EncryptablePropertySourceConverter:81] - Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+INFO  24-04-05 09:01:52[restartedMain] [BackendApplication:61] - Started BackendApplication in 3.424 seconds (JVM running for 4.373)
+INFO  24-04-05 09:02:41[http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+INFO  24-04-05 09:02:41[http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+INFO  24-04-05 09:02:41[http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+WARN  24-04-05 09:02:41[http-nio-8080-exec-1] [DefaultHandlerExceptionResolver:208] - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+DEBUG 24-04-05 09:02:45[http-nio-8080-exec-2] [sqltiming:368] -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT comment_no, user_no, post_no, comment_content, comment_date, is_chosen
+        FROM comment
+        WHERE post_no = '1'
+ {executed in 5 msec}
+DEBUG 24-04-05 09:03:11[http-nio-8080-exec-3] [sqltiming:368] -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT comment_no, user_no, post_no, comment_content, comment_date, is_chosen
+        FROM comment
+        WHERE post_no = '1'
+ {executed in 5 msec}
+INFO  24-04-05 17:38:56[SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...

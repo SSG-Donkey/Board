@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donkey Bucket - 나눔 플랫폼</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png" alt="Donkey Bucket 로고">
+    <h1>당신의 나눔은 귀하다</h1>
+</header>
+
+<main>
+    <ul>
+        <li>의111류</li>
+        <li>신발</li>
+        <li>전자기기</li>
+        <li>가구</li>
+        <li>악세사리</li>
+        <li>생활용품</li>
+        <li>기타</li>
+    </ul>
+    <section id="posts">
+        <h2>최근 나눔 게시글</h2>
+        <ul id="posts-list">
+        </ul>
+    </section>
+</main>
+
+<script>
+    const postsList = document.getElementById('posts-list');
+
+    fetch('/api_post/getAllPost')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(post => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <h3>${post.postTitle}</h3>
+                <p>${post.postContent}</p>
+                <p>${post.postFile}</p>
+                <span class="category">${post.postCategory}</span>
+            `;
+                postsList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error loading posts:', error));
+
+
+
+</script>
+</body>
+</html>

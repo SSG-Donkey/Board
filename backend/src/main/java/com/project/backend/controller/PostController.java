@@ -1,15 +1,14 @@
 package com.project.backend.controller;
 
+import com.project.backend.dto.PostDto;
+import com.project.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.project.backend.dto.PostDto;
-import com.project.backend.service.PostService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,9 +20,10 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/namjyung")
-    public String hello1() {
-        return "hello namjyung!";
+    @GetMapping("/getAllPost")
+    public ResponseEntity<List<PostDto>> getAllPosts() {
+        List<PostDto> posts = postService.find_post_All();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/getposttitle")

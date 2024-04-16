@@ -3,7 +3,13 @@
 <mapper namespace="com.project.backend.mappers.PostMapper">
 
     <select id="find_post_All"  resultType="com.project.backend.dto.PostDto">
-        select * from post
+        SELECT *
+        FROM (
+        SELECT *,
+        ROW_NUMBER() OVER (PARTITION BY post_category ORDER BY post_date DESC) as rn
+        FROM post
+        ) AS RankedPosts
+        WHERE rn <![CDATA[<=]]> 3
     </select>
 
     <select id="findPostByTitle" parameterType="string" resultType="com.project.backend.dto.PostDto">
