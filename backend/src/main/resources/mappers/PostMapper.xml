@@ -5,9 +5,9 @@
     <select id="find_post_All"  resultType="com.project.backend.dto.PostDto">
         SELECT *
         FROM (
-        SELECT *,
-        ROW_NUMBER() OVER (PARTITION BY post_category ORDER BY post_date DESC) as rn
-        FROM post
+            SELECT *,
+            ROW_NUMBER() OVER (PARTITION BY post_category ORDER BY post_date DESC) as rn
+            FROM post
         ) AS RankedPosts
         WHERE rn <![CDATA[<=]]> 3
     </select>
