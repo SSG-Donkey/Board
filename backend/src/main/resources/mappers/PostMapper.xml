@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.backend.mappers.PostMapper">
 
-    <select id="find_post_All"  resultType="com.project.backend.dto.PostDto">
+    <select id="findAllPosts" parameterType="map" resultType="com.project.backend.dto.PostDto">
+        SELECT * FROM post
+        ORDER BY post_date DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getTotalPostCount" resultType="int">
+        SELECT COUNT(*) FROM posts
+    </select>
+
+    <select id="getRecentPost"  resultType="com.project.backend.dto.PostDto">
         SELECT *
         FROM (
             SELECT *,
@@ -21,12 +31,12 @@
     </select>
 
     <select id="findPostByCategory" parameterType="string" resultType="com.project.backend.dto.PostDto">
-        <!-- categoryName가 null이 아닌 경우 -->
-        <if test="categoryName != null">
-            SELECT * FROM post WHERE post_category = #{categoryName}
+        <!-- categoryNo null이 아닌 경우 -->
+        <if test="categoryNo != null">
+            SELECT * FROM post WHERE post_category = #{categoryNo}
         </if>
-        <!-- categoryName가 null인 경우 -->
-        <if test="categoryName == null">
+        <!-- categoryNo가 null인 경우 -->
+        <if test="categoryNo == null">
             SELECT * FROM post
         </if>
     </select>

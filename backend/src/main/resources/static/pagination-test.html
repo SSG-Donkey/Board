@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post List</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Post List</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Post No</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th>File</th>
+    <th>User No</th>
+    <th>Views</th>
+    <th>Category</th>
+    <th>Region No</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody id="postList"></tbody>
+</table>
+
+<div id="pagination"></div>
+<p>Total Posts: <span id="totalCount"></span></p>
+
+<script>
+  const pageSize = 10;
+  let currentPage = 1;
+  let totalPages = 0;
+  let totalCount = 0;
+
+  function fetchPosts() {
+    $.ajax({
+      url: '/api_post/getAllPosts"',
+      data: {
+        page: currentPage,
+        pageSize: pageSize
+      },
+      success: function(data) {
+        renderPosts(data.posts);
+        renderPagination(data.currentPage, data.totalPages);
+        $('#totalCount').text(data.totalCount);
+        totalPages = data.totalPages;
+        totalCount = data.totalCount;
+      }
+    });
+  }
+
+  function renderPosts(posts) {
+    let html = '';
+    for (let post of posts) {
+      html += `
+                    <tr>
+                        <td>${post.postNo}</td>
+                        <td>${post.postTitle}</td>
+                        <td>${post.postContent}</td>
+                        <td>${post.postFile}</td>
+                        <td>${post.userNo}</td>
+                        <td>${post.postViews}</td>
+                        <td>${post.postCategory}</td>
+                        <td>${post.regionNo}</td>
+                        <td>${post.postDate}</td>
+                        <td>${post.postStatus}</td>
+                    </tr>
+                `;
+    }
+    $('#postList').html(html);
+  }
+
+  function renderPagination(currentPage, totalPages) {
+    let html = '';
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === currentPage) {
+        html += `<span>${i}</span>`;
+      } else {
+        html += `<a href="#" onclick="changePage(${i})">${i}</a>`;
+      }
+    }
+    $('#pagination').html(html);
+  }
+
+  function changePage(page) {
+    currentPage = page;
+    fetchPosts();
+  }
+
+  $(document).ready(function() {
+    fetchPosts();
+  });
+</script>
+</body>
+</html>

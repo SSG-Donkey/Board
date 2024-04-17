@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -18,9 +19,17 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/getAllPost")
-    public ResponseEntity<List<PostDto>> getAllPosts() {
-        List<PostDto> posts = postService.find_post_All();
+    @GetMapping("/getAllPosts")
+    public ResponseEntity<Map<String, Object>> getAllPosts(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        Map<String, Object> result = postService.findPostsWithPagination(page, pageSize);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/getRecentPost")
+    public ResponseEntity<List<PostDto>> getRecentPosts() {
+        List<PostDto> posts = postService.getRecentPost();
         
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
@@ -41,11 +50,9 @@ public class PostController {
     @GetMapping("/category/{categoryNo}")
     @ResponseBody
     public List<PostDto> getCategoryPosts(@PathVariable String categoryNo) {
-        // categoryName에 따라 DB에서 해당 카테고리의 데이터를 가져옵니다.
-        System.out.println("getCategoryPosts 접근");
         List<PostDto> posts;
 
-        if(categoryNo.equals("0"))
+        if(categoryNo.equals("null"))
             posts=postService.findPostByCategory(null);
         else
             posts=postService.findPostByCategory(categoryNo);

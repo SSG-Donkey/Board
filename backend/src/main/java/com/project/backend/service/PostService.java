@@ -1,6 +1,9 @@
 package com.project.backend.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.backend.dto.PostDto;
@@ -11,8 +14,27 @@ public class PostService {
     @Autowired
     PostMapper postMapper;
 
-    public List<PostDto> find_post_All() {
-        List<PostDto> res = postMapper.find_post_All();
+    public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        int offset = (page - 1) * pageSize;
+        params.put("offset", offset);
+        params.put("limit", pageSize);
+
+        List<PostDto> posts = postMapper.findAllPosts(params);
+        int totalCount = postMapper.getTotalPostCount();
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("posts", posts);
+        result.put("currentPage", page);
+        result.put("totalPages", totalPages);
+        result.put("totalCount", totalCount);
+
+        return result;
+    }
+
+    public List<PostDto> getRecentPost() {
+        List<PostDto> res = postMapper.getRecentPost();
 
         addBasicImage(res);
         return res;

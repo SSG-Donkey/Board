@@ -4,14 +4,18 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import com.project.backend.dto.PostDto;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
 public interface PostMapper {
-    List<PostDto> find_post_All();
+
+    List<PostDto> findAllPosts(Map<String, Object> params);
+    int getTotalPostCount();
+    List<PostDto> getRecentPost();
     PostDto findPostByTitle(String getPostTitle);
     PostDto findPostByNo(String getPostNo);
-    List<PostDto> findPostByCategory(String categoryName);
+    List<PostDto> findPostByCategory(String categoryNo);
 }
 
 

@@ -31,7 +31,7 @@
     <div class="category">
       <ul>
         <li><a class="font-orange" href="index.html">홈으로</a></li>
-        <li><a href="">게시판</a></li>
+        <li><a class="font-orange" href="/pagination-test.html">페이지 테스트</a></li>
         <li><a href="">로그인/회원가입</a></li>
       </ul>
     </div>
@@ -48,12 +48,13 @@
         <div class="col-auto">
           <div class="btn-group" role="group" aria-label="Category Buttons">
             <a href="/board.html" class="btn btn-outline-primary">전체</a>
-            <a href="/board.html?category=1" class="btn btn-outline-primary">의류</a>
-            <a href="/board.html?category=2" class="btn btn-outline-primary">신발</a>
+            <a href="/board.html?category=1" class="btn btn-outline-primary">도서</a>
+            <a href="/board.html?category=2" class="btn btn-outline-primary">의류</a>
             <a href="/board.html?category=3" class="btn btn-outline-primary">전자기기</a>
             <a href="/board.html?category=4" class="btn btn-outline-primary">가구</a>
             <a href="/board.html?category=5" class="btn btn-outline-primary">악세사리</a>
             <a href="/board.html?category=6" class="btn btn-outline-primary">생활용품</a>
+            <a href="/board.html?category=9" class="btn btn-outline-primary">기타</a>
           </div>
         </div>
       </div>
@@ -65,7 +66,7 @@
 
   </div>
   <div class="text-center">
-    <a class="home-link-text home-text" href="">인기매물 더 보기</a>
+    <a href="/board.html" class="home-link-text home-text">인기매물 더 보기</a>
   </div>
   </div>
 </section>
@@ -77,7 +78,7 @@
         <h1 class="home-main-title">
           당신 근처의
           <br>
-          당근마켓
+          당나귀마켓
         </h1>
         <p class="home-text">
           중고 거래부터 동네 정보까지, 이웃과 함께해
@@ -86,7 +87,7 @@
         </p>
       </div>
       <div class="home-main-image">
-        <img class="home-main-image" src="./assets/image/prototype_01.png" alt="당신 근처의 당근마켓" />
+        <img class="home-main-image" src="./assets/image/prototype_01.png" alt="당신 근처의 당나귀마켓" />
       </div>
     </div>
   </section>
@@ -162,7 +163,7 @@
           동네 주민이 남긴 진짜 후기를 함께 확인해보세요!
         </p>
         <div class="home-buttons">
-          <a class="home-button button-text" href="">당근마켓 동네가게 찾기</a>
+          <a class="home-button button-text" href="">당나귀마켓 동네가게 찾기</a>
         </div>
       </div>
     </div>
@@ -212,7 +213,7 @@
   <div class="footer-content">
     <section class="footer-top">
       <section class="footer-download">
-        <div class="footer-download-title">당근마켓 앱 다운로드</div>
+        <div class="footer-download-title">당나귀마켓 앱 다운로드</div>
         <div class="footer-download-buttons">
           <div class="download-button">
             <a class="download-link"
@@ -240,7 +241,7 @@
             <a href="" target="_blank">동네가게</a>
           </li>
           <li class="text-underline">
-            <a href="" target="_blank">당근알바</a>
+            <a href="" target="_blank">당나귀알바</a>
           </li>
           <li class="text-underline">
             <a href="" target="_blank">부동산 직거래</a>
@@ -251,7 +252,7 @@
         </ul>
         <ul>
           <li class="text-underline">
-            <a href="" target="_blank">당근비즈니스</a>
+            <a href="" target="_blank">당나귀비즈니스</a>
           </li>
           <li class="text-underline">
             <a href="" target="_blank">채팅하기</a>
@@ -295,7 +296,7 @@
           <address>
             <div>
               <b>주소</b>
-              서울특별시 구로구 디지털로 30길 28, 609호 (당근서비스)
+              서울특별시 구로구 디지털로 30길 28, 609호 (당나귀서비스)
             </div>
             <div>
                 <span>
@@ -412,7 +413,7 @@
   const postsList = document.getElementById('posts-list');
 
   //메인 화면 뿌리기
-  fetch('/api_post/getAllPost')
+  fetch('/api_post/getRecentPost')
           .then(response => response.json())
           .then(data => {
             const itemsWrap = document.querySelector('.items-wrap');
