@@ -11,7 +11,7 @@ public interface PostMapper {
     List<PostDto> find_post_All();
     PostDto findPostByTitle(String getPostTitle);
     PostDto findPostByNo(String getPostNo);
-    List<PostDto> findPostByCategory(String getPostCategory);
+    List<PostDto> findPostByCategory(String categoryName);
 }
 
 

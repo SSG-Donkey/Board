@@ -47,7 +47,7 @@
       <div class="row justify-content-center mb-4">
         <div class="col-auto">
           <div class="btn-group" role="group" aria-label="Category Buttons">
-            <a href="/board.html" class="btn btn-outline-primary">전체</a>
+            <a href="/board.html?category=0" class="btn btn-outline-primary">전체</a>
             <a href="/board.html?category=1" class="btn btn-outline-primary">의류</a>
             <a href="/board.html?category=2" class="btn btn-outline-primary">신발</a>
             <a href="/board.html?category=3" class="btn btn-outline-primary">전자기기</a>
@@ -59,14 +59,11 @@
       </div>
     </div>
   </div>
-  <h1 class="home-main-title home-hot-title">최근 올라온 나눔 물품</h1>
+  <h1 class="home-main-title home-hot-title">나눔 물품</h1>
+  <div id="category"></div>
   <div class="items-wrap">
 
 
-  </div>
-  <div class="text-center">
-    <a class="home-link-text home-text" href="">인기매물 더 보기</a>
-  </div>
   </div>
 </section>
 <!-- main section -->
@@ -405,41 +402,53 @@
     </section>
   </div>
 </footer>
-<script src="main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
 <script>
+  // URL 매개변수 값 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const category = urlParams.get('category');
 
-  const postsList = document.getElementById('posts-list');
+  window.onload = function() {
+    // URL 매개변수 값 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
 
-  //메인 화면 뿌리기
-  fetch('/api_post/getAllPost')
-          .then(response => response.json())
-          .then(data => {
-            const itemsWrap = document.querySelector('.items-wrap');
-            data.forEach(post => {
-              const itemElement = document.createElement('article');
-              itemElement.classList.add('item');
-              itemElement.innerHTML = `
-        <a class="item-link" href="/">
-          <div class="item-photo">
-            <img src="${post.postFile}" alt="${post.postTitle}">
-          </div>
-          <div class="item-desc">
-            <h2 class="item-name">${post.postTitle}</h2>
-            <div class="item-postContent">${post.postContent}</div>
-            <div class="item-region">${post.postCategory}</div>
-            <div class="item-counts">
-              <span>관심 1</span>
-              ·
-              <span>채팅 1</span>
-            </div>
-          </div>
-        </a>
-      `;
-              itemsWrap.appendChild(itemElement);
-            });
-          })
-          .catch(error => console.error('Error loading posts:', error));
+    // loadCategoryPosts 함수 호출
+    loadCategoryPosts(category);
+  };
+
+  //카테고리 누를 때 페이지 이동
+  function loadCategoryPosts(category) {
+    fetch(`/api_post/category/${category}`)
+            .then(response => response.json())
+            .then(data => {
+              const itemsWrap = document.querySelector('.items-wrap');
+              itemsWrap.innerHTML = ''; // 기존 내용 초기화
+
+              data.forEach(post => {
+                const itemElement = document.createElement('article');
+                itemElement.classList.add('item');
+                itemElement.innerHTML = `
+                            <a class="item-link" href="/post/${post.id}">
+                                <div class="item-photo">
+                                    <img src="${post.postFile}" alt="${post.postTitle}">
+                                </div>
+                                <div class="item-desc">
+                                    <h2 class="item-name">${post.postTitle}</h2>
+                                    <div class="item-postContent">${post.postContent}</div>
+                                    <div class="item-region">${post.postCategory}</div>
+                                    <div class="item-counts">
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                itemsWrap.appendChild(itemElement);
+              });
+            })
+            .catch(error => console.error('Error loading posts:', error));
+  }
 </script>
 </body>
+
 </html>

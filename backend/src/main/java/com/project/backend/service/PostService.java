@@ -14,13 +14,7 @@ public class PostService {
     public List<PostDto> find_post_All() {
         List<PostDto> res = postMapper.find_post_All();
 
-        //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
-        for (PostDto post : res) {
-            if( null == post.getPostFile())
-            {
-                post.setPostFile("https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png");
-            }   
-        }
+        addBasicImage(res);
         return res;
     }
 
@@ -40,12 +34,25 @@ public class PostService {
 
         return postDto;
     }
-    public List<PostDto> findPostByCategory(String getPostCategory) {
+
+    public List<PostDto> findPostByCategory(String categoryName) {
         System.out.println("디버그 시작");
-        System.out.println(getPostCategory);
+        System.out.println(categoryName);
         //List<PostDto> res = postMapper.find_post_All();
-        List<PostDto> postDto = postMapper.findPostByCategory(getPostCategory);
-        return postDto;
+        List<PostDto> res = postMapper.findPostByCategory(categoryName);
+        addBasicImage(res);
+        return res;
+    }
+
+    //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
+    public void addBasicImage(List<PostDto> res)
+    {
+        for (PostDto post : res) {
+            if( null == post.getPostFile())
+            {
+                post.setPostFile("https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png");
+            }
+        }
     }
 
 }

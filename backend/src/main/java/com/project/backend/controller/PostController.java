@@ -5,10 +5,8 @@ import com.project.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +21,7 @@ public class PostController {
     @GetMapping("/getAllPost")
     public ResponseEntity<List<PostDto>> getAllPosts() {
         List<PostDto> posts = postService.find_post_All();
-
-        for (PostDto postDto : posts) {
-            System.out.println(postDto.getPostFile());
-        }
+        
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -42,8 +37,27 @@ public class PostController {
     }
 
     //3. 카테고리별 게시글 조회
-    @GetMapping("/getpostcategory")
-    public ResponseEntity<List<PostDto>> findPostByCategory(@RequestParam String getPostCategory) {
-        return new ResponseEntity<>(postService.findPostByCategory(getPostCategory), HttpStatus.OK);
+    //http://localhost:8080/board.html?category=1
+    @GetMapping("/category/{categoryNo}")
+    @ResponseBody
+    public List<PostDto> getCategoryPosts(@PathVariable String categoryNo) {
+        // categoryName에 따라 DB에서 해당 카테고리의 데이터를 가져옵니다.
+        System.out.println("getCategoryPosts 접근");
+        List<PostDto> posts;
+
+        if(categoryNo.equals("0"))
+            posts=postService.findPostByCategory(null);
+        else
+            posts=postService.findPostByCategory(categoryNo);
+
+        return posts;
     }
+
+//    @GetMapping("/board")
+//    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
+//        // categoryName 값을 사용하여 데이터를 가져오거나 처리하는 로직 구현
+//        System.out.println("categoryNo :: " + categoryNo);
+//        model.addAttribute("categoryNo", categoryNo);
+//        return "board";
+//    }
 }

@@ -1,1 +1,7 @@
+backend/src/main/resources/application.properties
+
 /log.config.path_IS_UNDEFINED/
+/.idea/
+/.vscode/
+/backend/.gradle/
+/backend/build/

@@ -21,6 +21,14 @@
     </select>
 
     <select id="findPostByCategory" parameterType="string" resultType="com.project.backend.dto.PostDto">
-        SELECT * FROM post WHERE post_category = #{getPostCategory}
+        <!-- categoryName가 null이 아닌 경우 -->
+        <if test="categoryName != null">
+            SELECT * FROM post WHERE post_category = #{categoryName}
+        </if>
+        <!-- categoryName가 null인 경우 -->
+        <if test="categoryName == null">
+            SELECT * FROM post
+        </if>
     </select>
+
 </mapper>
