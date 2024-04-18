@@ -21,6 +21,7 @@ public interface PostMapper {
 
     List<PostDto> getPosts(@Param("offset") int offset, @Param("limit") int limit);
     long getPostCount();
+    long getPostCountByCategory(@Param("categoryNo") String categoryNo);
 }
 
 

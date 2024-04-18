@@ -20,12 +20,25 @@ public class PostService {
     public PageResultDto<PostDto> getPosts(int page, int size) {
         int offset = (page) * size;
         List<PostDto> posts = postMapper.getPosts(offset, size);
+        addBasicImage(posts);
         long totalCount = postMapper.getPostCount();
         int totalPages = (int) Math.ceil((double) totalCount / size);
 
         return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
+    //카테고리별 조회
+    public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
+        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountByCategory(categoryNo);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
+    //최근 매물 조회
     public List<PostDto> getRecentPost() {
         List<PostDto> res = postMapper.getRecentPost();
 
@@ -50,14 +63,6 @@ public class PostService {
         return postDto;
     }
 
-    public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
-        int offset = (page) * size;
-        List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
-        long totalCount = postMapper.getPostCount();
-        int totalPages = (int) Math.ceil((double) totalCount / size);
-
-        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
-    }
 
     //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
     public void addBasicImage(List<PostDto> res)

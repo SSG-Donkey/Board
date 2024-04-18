@@ -34,6 +34,7 @@
     <div class="category">
       <ul>
         <li><a class="font-orange" href="index.html">홈으로</a></li>
+        <li><a class="font-orange" href="pagination-test.html">페이징 테스트</a></li>
         <li><a href="">로그인/회원가입</a></li>
       </ul>
     </div>
@@ -71,7 +72,12 @@
 
   </div>
   <!--페이징-->
-  <div id="pagination"></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div id="pagination" class="col-md-6 text-center"></div>
+    </div>
+  </div>
+
 </section>
 <!-- main section -->
 <main>
@@ -419,6 +425,10 @@
   const pageSize = 10;
   let totalPages = 0;
 
+  window.onload = function() {
+    loadCategoryPosts(category, 0);
+  };
+
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
     fetch(`/api_post/category/${category}?page=${page}&size=${pageSize}`)
@@ -462,8 +472,12 @@
     // 이전 버튼 렌더링
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
+    // prevButton.classList.add('btn', 'mr-3'); // Bootstrap 클래스 추가
     prevButton.disabled = currentPage === 0;
-    prevButton.addEventListener('click', () => loadCategoryPosts(category,currentPage - 1));
+    prevButton.addEventListener('click', () => {
+      loadCategoryPosts(category, currentPage - 1);
+      scrollToTop(); // 스크롤 맨 위로 이동
+    });
     paginationDiv.appendChild(prevButton);
 
     // 페이지 버튼 렌더링
@@ -474,21 +488,35 @@
     for (let i = startPage; i < endPage; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i + 1;
+      // pageButton.classList.add('btn', 'btn-primary', 'mr-3'); // Bootstrap 클래스 추가
       if (i === currentPage) {
-        pageButton.classList.add('active');
+        pageButton.classList.add('active'); // 활성화된 페이지를 나타내는 클래스 추가
       }
-      pageButton.addEventListener('click', () => loadCategoryPosts(category,i));
+      pageButton.addEventListener('click', () => {
+        loadCategoryPosts(category, i);
+        scrollToTop(); // 스크롤 맨 위로 이동
+      });
       paginationDiv.appendChild(pageButton);
     }
 
     // 다음 버튼 렌더링
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next';
+    // nextButton.classList.add('btn', 'ml-3'); // Bootstrap 클래스 추가
     nextButton.disabled = currentPage === totalPages - 1;
-    nextButton.addEventListener('click', () => loadCategoryPosts(category,currentPage + 1));
+    nextButton.addEventListener('click', () => {
+      loadCategoryPosts(category, currentPage + 1);
+      scrollToTop(); // 스크롤 맨 위로 이동
+    });
     paginationDiv.appendChild(nextButton);
   }
-  loadCategoryPosts(category, 0);
+  // 스크롤을 맨 위로 이동하는 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 부드럽게 스크롤
+    });
+  }
 </script>
 </body>
 

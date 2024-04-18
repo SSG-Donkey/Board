@@ -66,13 +66,4 @@ public class PostController {
 
         return ResponseEntity.ok(posts);
     }
-
-//    @GetMapping("/getAllPosts")
-//    public ResponseEntity<PageResultDto<PostDto>> getPosts(
-//            @RequestParam(defaultValue = "1") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        PageResultDto<PostDto> pagedResult = postService.getPosts(page, size);
-//        return ResponseEntity.ok(pagedResult);
-//    }
 }

@@ -55,6 +55,16 @@
         SELECT COUNT(*) FROM post
     </select>
 
+    <select id="getPostCountByCategory" parameterType="string" resultType="long">
+        <if test="categoryNo != null">
+            SELECT COUNT(*) FROM post WHERE post_category = #{categoryNo}
+        </if>
+        <!-- categoryNo가 null인 경우 -->
+        <if test="categoryNo == null">
+            SELECT COUNT(*) FROM post
+        </if>
+    </select>
+
     <select id="findPostByCategory" parameterType="string" resultMap="postResultMap">
         <!-- categoryNo null이 아닌 경우 -->
         <if test="categoryNo != null">
