@@ -59,6 +59,25 @@ public class PostController {
 
         return posts;
     }
+    @PostMapping("/write")
+    public int insertPosts(@RequestParam("post_title") String post_title,
+                                     @RequestParam("post_content") String post_content,
+                                     @RequestParam("post_file") String post_file,
+                                     @RequestParam("user_no") Integer user_no,
+                                     @RequestParam("post_views") Integer post_views,
+                                     @RequestParam("post_category") Integer post_category,
+                                     @RequestParam("region_no") Integer region_no,
+                                     @RequestParam("post_status") Integer post_status) {
+
+        System.out.print("요청옴11 \n");
+        System.out.printf("지역: %s , 카테고리종류:%s\n",region_no,post_category);
+        System.out.printf("제목 :%s, 내용:%s\n",post_title,post_content);
+        System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
+
+        int posts = postService.insertPost(post_title,post_content,post_file,user_no,post_views,post_category,region_no,post_status);
+
+        return posts;
+    }
 
 //    @GetMapping("/board")
 //    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {

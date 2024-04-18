@@ -13,7 +13,14 @@ import com.project.backend.mappers.PostMapper;
 public class PostService {
     @Autowired
     PostMapper postMapper;
-
+    public int insertPost(String post_title,String post_content,String post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status) {
+        System.out.println("디버그 시작");
+        System.out.println(post_category);
+        //List<PostDto> res = postMapper.find_post_All();
+        int res = postMapper.insertPost(post_title,post_content,post_file,user_no,post_views,post_category,region_no,post_status);
+//        addBasicImage(res);
+        return res;
+    }
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
         Map<String, Object> params = new HashMap<>();
         int offset = (page - 1) * pageSize;
