@@ -1,13 +1,17 @@
 package com.project.backend.controller;
 
+import com.project.backend.dto.PageResultDto;
 import com.project.backend.dto.PostDto;
 import com.project.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,18 +23,20 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+
     @GetMapping("/getAllPosts")
-    public ResponseEntity<Map<String, Object>> getAllPosts(
+    public ResponseEntity<PageResultDto<PostDto>> getPosts(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int pageSize) {
-        Map<String, Object> result = postService.findPostsWithPagination(page, pageSize);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageResultDto<PostDto> pagedResult = postService.getPosts(page, size);
+        return ResponseEntity.ok(pagedResult);
     }
 
     @GetMapping("/getRecentPost")
     public ResponseEntity<List<PostDto>> getRecentPosts() {
         List<PostDto> posts = postService.getRecentPost();
-        
+
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -48,23 +54,25 @@ public class PostController {
     //3. 카테고리별 게시글 조회
     //http://localhost:8080/board.html?category=1
     @GetMapping("/category/{categoryNo}")
-    @ResponseBody
-    public List<PostDto> getCategoryPosts(@PathVariable String categoryNo) {
-        List<PostDto> posts;
+//    @ResponseBody
+    public ResponseEntity<PageResultDto<PostDto>> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
 
-        if(categoryNo.equals("null"))
-            posts=postService.findPostByCategory(null);
+        if (categoryNo.equals("null"))
+            posts = postService.findPostByCategory(null,page, size);
         else
-            posts=postService.findPostByCategory(categoryNo);
+            posts = postService.findPostByCategory(categoryNo,page, size);
 
-        return posts;
+        return ResponseEntity.ok(posts);
     }
 
-//    @GetMapping("/board")
-//    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
-//        // categoryName 값을 사용하여 데이터를 가져오거나 처리하는 로직 구현
-//        System.out.println("categoryNo :: " + categoryNo);
-//        model.addAttribute("categoryNo", categoryNo);
-//        return "board";
+//    @GetMapping("/getAllPosts")
+//    public ResponseEntity<PageResultDto<PostDto>> getPosts(
+//            @RequestParam(defaultValue = "1") int page,
+//            @RequestParam(defaultValue = "10") int size) {
+//
+//        PageResultDto<PostDto> pagedResult = postService.getPosts(page, size);
+//        return ResponseEntity.ok(pagedResult);
 //    }
 }

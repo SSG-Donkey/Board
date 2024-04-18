@@ -1,6 +1,7 @@
 package com.project.backend.mappers;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.project.backend.dto.PostDto;
 import java.util.List;
@@ -15,7 +16,11 @@ public interface PostMapper {
     List<PostDto> getRecentPost();
     PostDto findPostByTitle(String getPostTitle);
     PostDto findPostByNo(String getPostNo);
-    List<PostDto> findPostByCategory(String categoryNo);
+    List<PostDto> findPostByCategory(@Param("categoryNo") String categoryNo, @Param("offset") int offset, @Param("limit") int limit);
+
+
+    List<PostDto> getPosts(@Param("offset") int offset, @Param("limit") int limit);
+    long getPostCount();
 }
 
 

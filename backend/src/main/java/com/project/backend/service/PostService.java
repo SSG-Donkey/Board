@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.backend.dto.PageResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.backend.dto.PostDto;
@@ -14,23 +15,15 @@ public class PostService {
     @Autowired
     PostMapper postMapper;
 
-    public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
-        Map<String, Object> params = new HashMap<>();
-        int offset = (page - 1) * pageSize;
-        params.put("offset", offset);
-        params.put("limit", pageSize);
 
-        List<PostDto> posts = postMapper.findAllPosts(params);
-        int totalCount = postMapper.getTotalPostCount();
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+    //page : 0 size : 10
+    public PageResultDto<PostDto> getPosts(int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.getPosts(offset, size);
+        long totalCount = postMapper.getPostCount();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("posts", posts);
-        result.put("currentPage", page);
-        result.put("totalPages", totalPages);
-        result.put("totalCount", totalCount);
-
-        return result;
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
     public List<PostDto> getRecentPost() {
@@ -57,13 +50,13 @@ public class PostService {
         return postDto;
     }
 
-    public List<PostDto> findPostByCategory(String categoryName) {
-        System.out.println("디버그 시작");
-        System.out.println(categoryName);
-        //List<PostDto> res = postMapper.find_post_All();
-        List<PostDto> res = postMapper.findPostByCategory(categoryName);
-        addBasicImage(res);
-        return res;
+    public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
+        long totalCount = postMapper.getPostCount();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
     //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정

@@ -65,11 +65,13 @@
   <h1 class="home-main-title home-hot-title">나눔 물품</h1>
   <div id="category"></div>
 
-<!--  나눔 물품 보여주기-->
+  <!--  나눔 물품 보여주기-->
   <div class="items-wrap">
 
 
   </div>
+  <!--페이징-->
+  <div id="pagination"></div>
 </section>
 <!-- main section -->
 <main>
@@ -413,46 +415,80 @@
   // URL 매개변수 값 가져오기
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category');
-
-  window.onload = function() {
-    // URL 매개변수 값 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-
-    // loadCategoryPosts 함수 호출
-    loadCategoryPosts(category);
-  };
+  let currentPage = 0;
+  const pageSize = 10;
+  let totalPages = 0;
 
   //카테고리 누를 때 페이지 이동
-  function loadCategoryPosts(category) {
-    fetch(`/api_post/category/${category}`)
+  function loadCategoryPosts(category, page) {
+    fetch(`/api_post/category/${category}?page=${page}&size=${pageSize}`)
             .then(response => response.json())
             .then(data => {
-              const itemsWrap = document.querySelector('.items-wrap');
-              itemsWrap.innerHTML = ''; // 기존 내용 초기화
-
-              data.forEach(post => {
-                const itemElement = document.createElement('article');
-                itemElement.classList.add('item');
-                itemElement.innerHTML = `
-                            <a class="item-link" href="/post/${post.id}">
-                                <div class="item-photo">
-                                    <img src="${post.postFile}" alt="${post.postTitle}">
-                                </div>
-                                <div class="item-desc">
-                                    <h2 class="item-name">${post.postTitle}</h2>
-                                    <div class="item-postContent">${post.postContent}</div>
-                                    <div class="item-region">${post.postCategory}</div>
-                                    <div class="item-counts">
-                                    </div>
-                                </div>
-                            </a>
-                        `;
-                itemsWrap.appendChild(itemElement);
-              });
+              currentPage = data.currentPage;
+              totalPages = data.totalPages;
+              renderPosts(data.data);
+              renderPagination();
             })
             .catch(error => console.error('Error loading posts:', error));
   }
+  function renderPosts(posts) {
+    const itemsWrap = document.querySelector('.items-wrap');
+    itemsWrap.innerHTML = '';
+    posts.forEach(post => {
+      const itemElement = document.createElement('article');
+      itemElement.classList.add('item');
+      itemElement.innerHTML = `
+                          <a class="item-link" href="/post/${post.postNo}">
+                              <div class="item-photo">
+                                  <img src="${post.postFile}" alt="${post.postTitle}">
+                              </div>
+                              <div class="item-desc">
+                                  <h2 class="item-name">${post.postTitle}</h2>
+                                  <div class="item-postContent">${post.postContent}</div>
+                                  <div class="item-region">${post.postCategory}</div>
+                                  <div class="item-counts">
+                                  </div>
+                              </div>
+                          </a>
+                      `;
+
+      itemsWrap.appendChild(itemElement);
+    });
+  }
+  function renderPagination() {
+    const paginationDiv = document.getElementById('pagination');
+    paginationDiv.innerHTML = '';
+
+    // 이전 버튼 렌더링
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.disabled = currentPage === 0;
+    prevButton.addEventListener('click', () => loadCategoryPosts(category,currentPage - 1));
+    paginationDiv.appendChild(prevButton);
+
+    // 페이지 버튼 렌더링
+    const maxPageButtons = 5;
+    const startPage = Math.max(0, currentPage - Math.floor(maxPageButtons / 2));
+    const endPage = Math.min(totalPages, startPage + maxPageButtons);
+
+    for (let i = startPage; i < endPage; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i + 1;
+      if (i === currentPage) {
+        pageButton.classList.add('active');
+      }
+      pageButton.addEventListener('click', () => loadCategoryPosts(category,i));
+      paginationDiv.appendChild(pageButton);
+    }
+
+    // 다음 버튼 렌더링
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.disabled = currentPage === totalPages - 1;
+    nextButton.addEventListener('click', () => loadCategoryPosts(category,currentPage + 1));
+    paginationDiv.appendChild(nextButton);
+  }
+  loadCategoryPosts(category, 0);
 </script>
 </body>
 
