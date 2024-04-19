@@ -64,6 +64,8 @@ public class PostController {
 
         return posts;
     }
+
+    // 게시글작성 시작
     @PostMapping("/write")
     public String insertPosts(@RequestParam("post_title") String post_title,
                                      @RequestParam("post_content") String post_content,
@@ -91,7 +93,7 @@ public class PostController {
         //DB에 값 저장된경우
         if (posts==1){
             String html = "<script type=\"text/javascript\">\n" +
-                    "\t\talert(\"추가 되었습니다. \");\n" +
+                    "\t\talert(\"게시글 추가 되었습니다. \");\n" +
                     "\t\tlocation.href = \"/board.html\";\n" +
                     "</script>";
             return html;
@@ -99,12 +101,13 @@ public class PostController {
         //DB에 값 저장안된경우
         else{
             String html = "<script type=\"text/javascript\">\n" +
-                    "\t\talert(\"실패 하였습니다. \");\n" +
+                    "\t\talert(\"게시글 등록 실패 하였습니다. \");\n" +
                     "\t\tlocation.href = \"/board.html\";\n" +
                     "</script>";
             return html;
         }
     }
+    //게시글 작성 끝
 
 //    @GetMapping("/board")
 //    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
