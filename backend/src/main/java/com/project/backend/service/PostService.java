@@ -1,14 +1,13 @@
 package com.project.backend.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.project.backend.dto.PageResultDto;
 import com.project.backend.dto.PostDto;
 import com.project.backend.mappers.PostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 public class PostService {
@@ -18,37 +17,49 @@ public class PostService {
     @Autowired
     S3ImageService s3ImageService;
 
-
     public int insertPost(String post_title,String post_content,MultipartFile post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
-     //   System.out.print ("s3이미지명:");
-        //
         String post_file1=s3ImageService.upload(post_file);
-      //  System.out.println(post_file1);
 
         int res = postMapper.insertPost(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point);
-        //addBasicImage(res);
+//        addBasicImage(res);
 
         return res;
     }
-    public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
-        Map<String, Object> params = new HashMap<>();
-        int offset = (page - 1) * pageSize;
-        params.put("offset", offset);
-        params.put("limit", pageSize);
 
-        List<PostDto> posts = postMapper.findAllPosts(params);
-        int totalCount = postMapper.getTotalPostCount();
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+    //page : 0 size : 10
+    public PageResultDto<PostDto> getPosts(int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.getPosts(offset, size);
+//        addBasicImage(posts);
+        long totalCount = postMapper.getPostCount();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("posts", posts);
-        result.put("currentPage", page);
-        result.put("totalPages", totalPages);
-        result.put("totalCount", totalCount);
-
-        return result;
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
+    //카테고리별 조회
+    public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
+        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountByCategory(categoryNo);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
+    //검색하기
+    public PageResultDto<PostDto> searchPost(String searchTerm, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostBySearch(searchTerm,offset, size);
+//        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountBySearch(searchTerm);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
+    //최근 매물 조회
     public List<PostDto> getRecentPost() {
         List<PostDto> res = postMapper.getRecentPost();
 
@@ -73,14 +84,6 @@ public class PostService {
         return postDto;
     }
 
-    public List<PostDto> findPostByCategory(String categoryName) {
-        System.out.println("디버그 시작");
-        System.out.println(categoryName);
-        //List<PostDto> res = postMapper.find_post_All();
-        List<PostDto> res = postMapper.findPostByCategory(categoryName);
-        addBasicImage(res);
-        return res;
-    }
 
     //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
     public void addBasicImage(List<PostDto> res)

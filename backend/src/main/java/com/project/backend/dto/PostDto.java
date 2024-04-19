@@ -3,9 +3,11 @@ package com.project.backend.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class PostDto {
     private String postNo;
     private String postTitle;
@@ -15,7 +17,9 @@ public class PostDto {
     private int point;
     private String postViews;
     private String postCategory;
+    private String postCategoryName;
     private String regionNo;
+    private String regionName;
     private String postDate;
     private String postStatus;
     private boolean showAlert; // Indicates whether to show an alert on the client-side

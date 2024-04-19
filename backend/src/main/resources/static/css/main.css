@@ -7,7 +7,7 @@ ul li {
 }
 
 #home-main-section-top {
-  padding-top: 24px;
+  padding-top: 12px;
   background-color: #FBF7F2;
 }
 
@@ -170,7 +170,7 @@ ul li {
 
 .home-main-section .home-hot-content {
   width: 1024px;
-  margin: 6rem auto 12rem auto;
+  margin: 3rem auto 6rem auto;
 }
 
 .home-main-section .home-hot-title {
@@ -189,7 +189,7 @@ ul li {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 100%;
+  width: 50%;
   margin: 0 auto;
 }
 

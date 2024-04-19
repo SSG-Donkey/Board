@@ -1,19 +1,21 @@
 package com.project.backend.controller;
 
-import com.project.backend.dto.PostDto;
-import com.project.backend.service.PostService;
-import com.project.backend.service.S3ImageService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import com.project.backend.dto.PageResultDto;
+import com.project.backend.dto.PostDto;
+import com.project.backend.service.PostService;
 
 
 @RestController
@@ -25,17 +27,18 @@ public class PostController {
 
 
     @GetMapping("/getAllPosts")
-    public ResponseEntity<Map<String, Object>> getAllPosts(
+    public ResponseEntity<PageResultDto<PostDto>> getPosts(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int pageSize) {
-        Map<String, Object> result = postService.findPostsWithPagination(page, pageSize);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageResultDto<PostDto> pagedResult = postService.getPosts(page, size);
+        return ResponseEntity.ok(pagedResult);
     }
 
     @GetMapping("/getRecentPost")
     public ResponseEntity<List<PostDto>> getRecentPosts() {
         List<PostDto> posts = postService.getRecentPost();
-        
+
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -50,19 +53,19 @@ public class PostController {
         return new ResponseEntity<>(postService.findPostByNo(getPostNo), HttpStatus.OK);
     }
 
-    //3. 카테고리별 게시글 조회
+    //카테고리별 게시글 조회
     //http://localhost:8080/board.html?category=1
     @GetMapping("/category/{categoryNo}")
-    @ResponseBody
-    public List<PostDto> getCategoryPosts(@PathVariable String categoryNo) {
-        List<PostDto> posts;
+    public ResponseEntity<PageResultDto<PostDto>> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
 
-        if(categoryNo.equals("null"))
-            posts=postService.findPostByCategory(null);
+        if (categoryNo.equals("null"))
+            posts = postService.findPostByCategory(null,page, size);
         else
-            posts=postService.findPostByCategory(categoryNo);
+            posts = postService.findPostByCategory(categoryNo,page, size);
 
-        return posts;
+        return ResponseEntity.ok(posts);
     }
 
     // 게시글작성 시작
@@ -78,15 +81,6 @@ public class PostController {
                                      @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-       // System.out.print("요청옴 \n");
-      // System.out.println("File Name: " + post_file.getOriginalFilename());
-      //  System.out.println("File Size: " + post_file.getSize() + " bytes");
-      //  System.out.println("Content Type: " + post_file.getContentType());
-      //  System.out.print(post_file);
-
-      //  System.out.printf("지역: %s , 카테고리종류:%s\n",region_no,post_category);
-     //   System.out.printf("제목 :%s, 내용:%s\n",post_title,post_content);
-    //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
         int posts = postService.insertPost(post_title,post_content,post_file,user_no,post_views,post_category,region_no,post_status,point);
 
 
@@ -109,11 +103,14 @@ public class PostController {
     }
     //게시글 작성 끝
 
-//    @GetMapping("/board")
-//    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
-//        // categoryName 값을 사용하여 데이터를 가져오거나 처리하는 로직 구현
-//        System.out.println("categoryNo :: " + categoryNo);
-//        model.addAttribute("categoryNo", categoryNo);
-//        return "board";
-//    }
+    //검색하기
+    @GetMapping("/search")
+    public ResponseEntity<PageResultDto<PostDto>> search(@RequestParam String searchTerm, @RequestParam(defaultValue = "1") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
+
+        posts = postService.searchPost(searchTerm,page, size);
+
+        return ResponseEntity.ok(posts);
+    }
 }
