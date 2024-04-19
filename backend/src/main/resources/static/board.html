@@ -210,7 +210,6 @@
     // 이전 버튼 렌더링
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
-    // prevButton.classList.add('btn', 'mr-3'); // Bootstrap 클래스 추가
     prevButton.disabled = currentPage === 0;
     prevButton.addEventListener('click', () => {
       loadCategoryPosts(category, currentPage - 1);
@@ -226,7 +225,6 @@
     for (let i = startPage; i < endPage; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i + 1;
-      // pageButton.classList.add('btn', 'btn-primary', 'mr-3'); // Bootstrap 클래스 추가
       if (i === currentPage) {
         pageButton.classList.add('active'); // 활성화된 페이지를 나타내는 클래스 추가
       }
@@ -240,7 +238,6 @@
     // 다음 버튼 렌더링
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next';
-    // nextButton.classList.add('btn', 'ml-3'); // Bootstrap 클래스 추가
     nextButton.disabled = currentPage === totalPages - 1;
     nextButton.addEventListener('click', () => {
       loadCategoryPosts(category, currentPage + 1);
@@ -255,6 +252,39 @@
       behavior: 'smooth' // 부드럽게 스크롤
     });
   }
+
+  function setCategoryTitle(category) {
+    let title;
+    switch(category) {
+      case '1':
+        title = '도서';
+        break;
+      case '2':
+        title = '의류';
+        break;
+      case '3':
+        title = '전자기기';
+        break;
+      case '4':
+        title = '가구';
+        break;
+      case '5':
+        title = '악세사리';
+        break;
+      case '6':
+        title = '생활용품';
+        break;
+      case '9':
+        title = '기타';
+        break;
+      default:
+        title = '전체';
+    }
+    $('.home-main-title').text('나눔 물품 - ' + title);
+  }
+
+  // 페이지 로드시 실행
+  setCategoryTitle(category);
 </script>
 </body>
 

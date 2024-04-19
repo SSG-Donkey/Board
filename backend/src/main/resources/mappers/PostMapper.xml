@@ -84,6 +84,7 @@
             FROM post
             JOIN region ON post.region_no = region.region_no
         </if>
+        ORDER BY post_date DESC
         LIMIT #{offset}, #{limit}
     </select>
 </mapper>
