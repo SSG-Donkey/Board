@@ -3,9 +3,9 @@
 <mapper namespace="com.project.backend.mappers.PostMapper">
 
     <select id="findAllPosts" parameterType="map" resultType="com.project.backend.dto.PostDto">
-        SELECT post.*, category.category_name as post_category_name
+        SELECT post.*, region.region_name as region_name
         FROM post
-        JOIN category ON post.post_category = category.category_no
+        JOIN region ON post.region_no = region.region_no
         ORDER BY post_date DESC
         LIMIT #{offset}, #{limit}
     </select>
@@ -17,10 +17,10 @@
     <select id="getRecentPost"  resultType="com.project.backend.dto.PostDto">
         SELECT *
         FROM (
-            SELECT *, category.category_name as post_category_name,
+            SELECT post.*, region.region_name as region_name,
             ROW_NUMBER() OVER (PARTITION BY post_category ORDER BY post_date DESC) as rn
             FROM post
-            JOIN category ON post.post_category = category.category_no
+            JOIN region ON post.region_no = region.region_no
         ) AS RankedPosts
         WHERE rn <![CDATA[<=]]> 3
     </select>
@@ -49,9 +49,9 @@
     </resultMap>
 
     <select id="getPosts" resultMap="postResultMap">
-        SELECT post.*, category.category_name as post_category_name
+        SELECT post.*, region.region_name as region_name
         FROM post
-        JOIN category ON post.post_category = category.category_no
+        JOIN region ON post.region_no = region.region_no
         ORDER BY post_date DESC
         LIMIT #{offset}, #{limit}
     </select>
@@ -73,16 +73,16 @@
     <select id="findPostByCategory" parameterType="string" resultMap="postResultMap">
         <!-- categoryNo null이 아닌 경우 -->
         <if test="categoryNo != null">
-            SELECT post.*, category.category_name as post_category_name
+            SELECT post.*, region.region_name as region_name
             FROM post
-            JOIN category ON post.post_category = category.category_no
+            JOIN region ON post.region_no = region.region_no
             WHERE post_category = #{categoryNo}
         </if>
         <!-- categoryNo가 null인 경우 -->
         <if test="categoryNo == null">
-            SELECT post.*, category.category_name as post_category_name
+            SELECT post.*, region.region_name as region_name
             FROM post
-            JOIN category ON post.post_category = category.category_no
+            JOIN region ON post.region_no = region.region_no
         </if>
         LIMIT #{offset}, #{limit}
     </select>
