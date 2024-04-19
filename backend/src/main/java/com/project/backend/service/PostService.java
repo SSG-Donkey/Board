@@ -8,17 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.backend.dto.PostDto;
 import com.project.backend.mappers.PostMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PostService {
     @Autowired
     PostMapper postMapper;
-    public int insertPost(String post_title,String post_content,String post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status) {
-        System.out.println("디버그 시작");
-        System.out.println(post_category);
-        //List<PostDto> res = postMapper.find_post_All();
-        int res = postMapper.insertPost(post_title,post_content,post_file,user_no,post_views,post_category,region_no,post_status);
-//        addBasicImage(res);
+
+    @Autowired
+    S3ImageService s3ImageService;
+
+
+    public int insertPost(String post_title,String post_content,MultipartFile post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
+     //   System.out.print ("s3이미지명:");
+        //
+        String post_file1=s3ImageService.upload(post_file);
+      //  System.out.println(post_file1);
+
+        int res = postMapper.insertPost(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point);
+        //addBasicImage(res);
+
         return res;
     }
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {

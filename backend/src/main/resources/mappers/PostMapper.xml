@@ -3,8 +3,8 @@
 <mapper namespace="com.project.backend.mappers.PostMapper">
 
     <insert id="insertPost" parameterType="map" >
-        INSERT INTO post (post_title    , post_content, post_file, user_no,post_views ,post_category,region_no,post_status)
-        VALUES (#{post_title}, #{post_content}, #{post_file}, #{user_no}, #{post_views},#{post_category},#{region_no},#{post_status})
+        INSERT INTO post (post_title    , post_content, post_file, user_no,post_views ,post_category,region_no,post_status,point)
+        VALUES (#{post_title}, #{post_content}, #{post_file}, #{user_no}, #{post_views},#{post_category},#{region_no},#{post_status},#{point})
     </insert>
 
 
