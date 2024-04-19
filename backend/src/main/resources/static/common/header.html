@@ -56,16 +56,22 @@
     if (window.location.pathname === '/board.html' && window.location.search.includes('search=')) {
       const searchTerm = new URLSearchParams(window.location.search).get('search');
       console.log("검색 내용 : " + searchTerm);
-      fetch('/api_post/search?search=' + encodeURIComponent(searchTerm) + "&page=${page}&size=${pageSize}")
-              //`api_post/search?search=hihi&page=${page}&size=${pageSize}`
+
+      const page = 0; // 페이지 수
+      const pageSize = 10; // 페이지당 항목 수
+
+      fetch(`/api_post/search?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`)
               .then(response => response.json())
               .then(data => {
                 // 여기서는 받아온 데이터를 처리하여 결과를 표시합니다.
                 console.log('검색 결과:', data);
+                renderPosts(data.data);
+                renderPagination();
               })
               .catch(error => {
                 console.error('검색 API 호출 중 오류 발생:', error);
               });
     }
+
   });
 </script>
