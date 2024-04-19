@@ -51,10 +51,9 @@ public class PostController {
         return new ResponseEntity<>(postService.findPostByNo(getPostNo), HttpStatus.OK);
     }
 
-    //3. 카테고리별 게시글 조회
+    //카테고리별 게시글 조회
     //http://localhost:8080/board.html?category=1
     @GetMapping("/category/{categoryNo}")
-//    @ResponseBody
     public ResponseEntity<PageResultDto<PostDto>> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
         PageResultDto<PostDto>  posts;
@@ -63,6 +62,17 @@ public class PostController {
             posts = postService.findPostByCategory(null,page, size);
         else
             posts = postService.findPostByCategory(categoryNo,page, size);
+
+        return ResponseEntity.ok(posts);
+    }
+
+    //검색하기
+    @GetMapping("/search")
+    public ResponseEntity<PageResultDto<PostDto>> search(@RequestParam String searchTerm, @RequestParam(defaultValue = "1") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
+
+        posts = postService.searchPost(searchTerm,page, size);
 
         return ResponseEntity.ok(posts);
     }

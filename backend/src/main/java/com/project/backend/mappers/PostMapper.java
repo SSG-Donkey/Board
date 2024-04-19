@@ -17,11 +17,13 @@ public interface PostMapper {
     PostDto findPostByTitle(String getPostTitle);
     PostDto findPostByNo(String getPostNo);
     List<PostDto> findPostByCategory(@Param("categoryNo") String categoryNo, @Param("offset") int offset, @Param("limit") int limit);
+    List<PostDto> findPostBySearch(@Param("searchTerm") String searchTerm, @Param("offset") int offset, @Param("limit") int limit);
 
 
     List<PostDto> getPosts(@Param("offset") int offset, @Param("limit") int limit);
     long getPostCount();
     long getPostCountByCategory(@Param("categoryNo") String categoryNo);
+    long getPostCountBySearch(@Param("searchTerm") String searchTerm);
 }
 
 

@@ -38,6 +38,17 @@ public class PostService {
         return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
+    //검색하기
+    public PageResultDto<PostDto> searchPost(String searchTerm, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostBySearch(searchTerm,offset, size);
+//        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountBySearch(searchTerm);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
     //최근 매물 조회
     public List<PostDto> getRecentPost() {
         List<PostDto> res = postMapper.getRecentPost();

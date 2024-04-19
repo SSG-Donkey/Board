@@ -70,7 +70,12 @@
         </if>
     </select>
 
-    <select id="findPostByCategory" parameterType="string" resultMap="postResultMap">
+    <select id="getPostCountBySearch" parameterType="string" resultType="long">
+            SELECT COUNT(*) FROM post WHERE post_title like CONCAT('%',#{searchTerm},'%')
+
+    </select>
+
+    <select id="findPostByCategory" parameterType="map" resultMap="postResultMap">
         <!-- categoryNo null이 아닌 경우 -->
         <if test="categoryNo != null">
             SELECT post.*, region.region_name as region_name
@@ -87,4 +92,15 @@
         ORDER BY post_date DESC
         LIMIT #{offset}, #{limit}
     </select>
+
+    <select id="findPostBySearch" parameterType="map" resultMap="postResultMap">
+        SELECT post.*, region.region_name as region_name
+        FROM post
+        JOIN region ON post.region_no = region.region_no
+        WHERE post_title like CONCAT('%',#{searchTerm},'%')
+        ORDER BY post_date DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+
 </mapper>
