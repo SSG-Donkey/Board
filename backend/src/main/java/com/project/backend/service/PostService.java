@@ -1,26 +1,36 @@
 package com.project.backend.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.project.backend.dto.PageResultDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.project.backend.dto.PostDto;
 import com.project.backend.mappers.PostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 public class PostService {
     @Autowired
     PostMapper postMapper;
 
+    @Autowired
+    S3ImageService s3ImageService;
+
+    public int insertPost(String post_title,String post_content,MultipartFile post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
+        String post_file1=s3ImageService.upload(post_file);
+
+        int res = postMapper.insertPost(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point);
+//        addBasicImage(res);
+
+        return res;
+    }
 
     //page : 0 size : 10
     public PageResultDto<PostDto> getPosts(int page, int size) {
         int offset = (page) * size;
         List<PostDto> posts = postMapper.getPosts(offset, size);
-        addBasicImage(posts);
+//        addBasicImage(posts);
         long totalCount = postMapper.getPostCount();
         int totalPages = (int) Math.ceil((double) totalCount / size);
 

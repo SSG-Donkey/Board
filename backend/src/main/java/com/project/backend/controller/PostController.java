@@ -1,19 +1,21 @@
 package com.project.backend.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.project.backend.dto.PageResultDto;
 import com.project.backend.dto.PostDto;
 import com.project.backend.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -64,6 +66,38 @@ public class PostController {
             posts = postService.findPostByCategory(categoryNo,page, size);
 
         return ResponseEntity.ok(posts);
+    }
+    @PostMapping("/write")
+    public String insertPosts(@RequestParam("post_title") String post_title,
+                                     @RequestParam("post_content") String post_content,
+                                     @RequestParam("post_file") MultipartFile post_file,
+                                     @RequestParam("user_no") Integer user_no,
+                                     @RequestParam("post_views") Integer post_views,
+                                     @RequestParam("post_category") Integer post_category,
+                                     @RequestParam("region_no") Integer region_no,
+                                     @RequestParam("post_status") Integer post_status,
+                                     @RequestParam("point") Integer point) throws Exception {
+
+        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
+        int posts = postService.insertPost(post_title,post_content,post_file,user_no,post_views,post_category,region_no,post_status,point);
+
+
+        //DB에 값 저장된경우
+        if (posts==1){
+            String html = "<script type=\"text/javascript\">\n" +
+                    "\t\talert(\"추가 되었습니다. \");\n" +
+                    "\t\tlocation.href = \"/board.html\";\n" +
+                    "</script>";
+            return html;
+        }
+        //DB에 값 저장안된경우
+        else{
+            String html = "<script type=\"text/javascript\">\n" +
+                    "\t\talert(\"실패 하였습니다. \");\n" +
+                    "\t\tlocation.href = \"/board.html\";\n" +
+                    "</script>";
+            return html;
+        }
     }
 
     //검색하기
