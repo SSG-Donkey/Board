@@ -1,5 +1,5 @@
 # Docker 이미지의 베이스 이미지를 지정
-FROM adoptopenjdk/openjdk11:alpine-slim
+FROM openjdk:17-jdk
 
 # 컨테이너 내부에 애플리케이션을 설치할 디렉토리를 생성
 RUN mkdir /app
