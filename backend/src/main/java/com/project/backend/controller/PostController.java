@@ -82,11 +82,7 @@ public class PostController {
         }
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
-<<<<<<< HEAD
-    //게시글 작성 완료ㅇㅇ
 
-=======
->>>>>>> origin/main
 //    @GetMapping("/board")
 //    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
 //        // categoryName 값을 사용하여 데이터를 가져오거나 처리하는 로직 구현
