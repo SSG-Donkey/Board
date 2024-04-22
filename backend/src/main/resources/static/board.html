@@ -34,6 +34,9 @@
     <div class="category">
       <ul>
         <li><a class="font-orange" href="index.html">홈으로</a></li>
+        <li><a class="font-orange" href="/board.html">나눔 게시판 </a></li>
+        <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
+        <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
         <li><a href="">로그인/회원가입</a></li>
       </ul>
     </div>
@@ -62,10 +65,18 @@
       </div>
     </div>
   </div>
-  <h1 class="home-main-title home-hot-title">나눔 물품</h1>
-  <div id="category"></div>
 
-<!--  나눔 물품 보여주기-->
+<!-- 나눔 글 작성하러가기 -->
+
+
+<div>
+  <h1><a class="home-button button-text2" style="float:right"  href="/write.html">나눔 글 작성하기</a></h1>
+</div>
+
+  <!--  나눔 물품 보여주기-->
+
+  <h1 class="home-main-title home-hot-title">나눔 물품 </h1>
+  <div id="category"></div>
   <div class="items-wrap">
 
 
@@ -82,7 +93,7 @@
           당나귀마켓
         </h1>
         <p class="home-text">
-          중고 거래부터 동네 정보까지, 이웃과 함께해
+          중고 나눔부터 동네 정보까지, 이웃과 함께해
           <br>
           가깝고 따뜻한 당신의 근처를 만들어요.
         </p>
@@ -101,14 +112,14 @@
         <h1 class="home-main-title">
           우리 동네
           <br>
-          중고 직거래 마켓
+          나눔 마켓
         </h1>
         <p class="home-text">
-          동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.
+          동네 주민들과 가깝고 따뜻한 나눔을 지금 경험해보세요.
         </p>
         <div class="home-buttons">
           <a class="home-button button-text" href="">인기매물 보기</a>
-          <a class="home-button button-text B-1" href="">믿을 수 있는 중고거래</a>
+          <a class="home-button button-text B-1" href="">믿을 수 있는 나눔거래</a>
         </div>
       </div>
     </div>
@@ -278,7 +289,7 @@
           <div>
               <span>
                 <b>대표</b>
-                김용현, 황도연
+                최기운
               </span>
             <span class="_1trxeqsd">
                 <svg width="2" height="10" viewBox="0 0 2 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -287,7 +298,7 @@
               </span>
             <span>
                 <b>사업자번호</b>
-                375-87-00088
+
               </span>
           </div>
           <div>
@@ -424,6 +435,8 @@
   };
 
   //카테고리 누를 때 페이지 이동
+
+  //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category) {
     fetch(`/api_post/category/${category}`)
             .then(response => response.json())
@@ -435,7 +448,7 @@
                 const itemElement = document.createElement('article');
                 itemElement.classList.add('item');
                 itemElement.innerHTML = `
-                            <a class="item-link" href="api_post/post=${post.postNo}">
+                            <a class="item-link" href="/boardDetail.html?post=${post.postNo}">
                                 <div class="item-photo">
                                     <img src="${post.postFile}" alt="${post.postTitle}">
                                 </div>

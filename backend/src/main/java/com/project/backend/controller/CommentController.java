@@ -29,7 +29,7 @@ public class CommentController {
         int posts = commentService.insertComment(commentDto);
         if (posts == 1) {
             String html = "<script type=\"text/javascript\">\n" +
-                    "\t\talert(\"게시글 추가 되었습니다. \");\n" +
+                    "\t\talert(\"댓글 추가 되었습니다. \");\n" +
                     "\t\tlocation.href = \"/boardDetail.html?post=" + commentDto.getPostNo() + "\";\n" +
                     "</script>";
             return html;

@@ -1,9 +1,8 @@
 package com.project.backend.mappers;
 
-import com.project.backend.dto.PostDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
+import com.project.backend.dto.PostDto;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,7 @@ public interface PostMapper {
     PostDto findPostByTitle(String getPostTitle);
     PostDto findPostByNo(String getPostNo);
     List<PostDto> findPostByCategory(String categoryNo);
+    int insertPost(String post_title , String post_content, String post_file, Integer user_no, Integer post_views ,Integer post_category,Integer region_no,Integer post_status,Integer point);
 }
 
 

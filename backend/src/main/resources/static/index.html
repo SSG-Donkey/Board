@@ -447,6 +447,51 @@
             });
         })
         .catch(error => console.error('Error loading posts:', error));
+
+    // URL 매개변수 값 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+
+    window.onload = function() {
+        // URL 매개변수 값 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // loadCategoryPosts 함수 호출
+        loadCategoryPosts(category);
+    };
+
+    //카테고리 누를 때 페이지 이동
+    function loadCategoryPosts(category) {
+        fetch(`/api_post/category/${category}`)
+            .then(response => response.json())
+            .then(data => {
+                const itemsWrap = document.querySelector('.items-wrap');
+                itemsWrap.innerHTML = ''; // 기존 내용 초기화
+
+                data.forEach(post => {
+                    const itemElement = document.createElement('article');
+                    itemElement.classList.add('item');
+                    itemElement.innerHTML = `
+                            <a class="item-link" href="/boardDetail.html?post=${post.postNo}">
+                                <div class="item-photo">
+                                    <img src="${post.postFile}" alt="${post.postTitle}">
+                                </div>
+                                <div class="item-desc">
+                                    <h2 class="item-name">${post.postTitle}</h2>
+                                    <div class="item-postContent">${post.postContent}</div>
+                                    <div class="item-region">${post.postCategory}</div>
+                                    <div class="item-counts">
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    itemsWrap.appendChild(itemElement);
+                });
+            })
+            .catch(error => console.error('Error loading posts:', error));
+    }
 </script>
 </body>
+
 </html>
