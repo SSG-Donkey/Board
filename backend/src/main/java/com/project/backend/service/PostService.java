@@ -52,7 +52,7 @@ public class PostService {
     public PageResultDto<PostDto> searchPost(String searchTerm, int page, int size) {
         int offset = (page) * size;
         List<PostDto> posts = postMapper.findPostBySearch(searchTerm,offset, size);
-//        addBasicImage(posts);
+        addBasicImage(posts);
         long totalCount = postMapper.getPostCountBySearch(searchTerm);
         int totalPages = (int) Math.ceil((double) totalCount / size);
 
