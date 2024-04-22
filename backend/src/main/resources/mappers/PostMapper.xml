@@ -104,6 +104,7 @@
         FROM post
         JOIN region ON post.region_no = region.region_no
         WHERE post_title like CONCAT('%',#{searchTerm},'%')
+        OR  region.region_name like CONCAT('%',#{searchTerm},'%')
         ORDER BY post_date DESC
         LIMIT #{offset}, #{limit}
     </select>

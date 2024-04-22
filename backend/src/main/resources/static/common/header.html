@@ -68,6 +68,12 @@
               .then(data => {
                 // 여기서는 받아온 데이터를 처리하여 결과를 표시합니다.
                 console.log('검색 결과:', data);
+                currentPage = data.currentPage;
+                totalPages = data.totalPages;
+
+                console.log('currentPage:', data.currentPage);
+                console.log('totalPages:', data.totalPages);
+
                 renderPosts(data.data);
                 renderPagination();
               })
@@ -75,6 +81,5 @@
                 console.error('검색 API 호출 중 오류 발생:', error);
               });
     }
-
   });
 </script>
