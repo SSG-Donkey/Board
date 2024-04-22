@@ -1,13 +1,12 @@
 package com.project.backend.service;
 
 
-import java.util.List;
-
+import com.project.backend.dto.UserDto;
+import com.project.backend.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.backend.dto.UserDto;
-import com.project.backend.mappers.UserMapper;
+import java.util.List;
 
 @Service
 public class UserService {

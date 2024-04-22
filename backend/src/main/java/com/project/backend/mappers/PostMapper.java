@@ -1,8 +1,9 @@
 package com.project.backend.mappers;
 
+import com.project.backend.dto.PostDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import com.project.backend.dto.PostDto;
+
 import java.util.List;
 import java.util.Map;
 

@@ -1,12 +1,11 @@
 package com.project.backend.service;
 
-import java.util.List;
-
+import com.project.backend.dto.RegionDto;
+import com.project.backend.mappers.RegionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.backend.dto.RegionDto;
-import com.project.backend.mappers.RegionMapper;
+import java.util.List;
 
 @Service
 public class RegionService {

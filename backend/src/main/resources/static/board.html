@@ -435,7 +435,7 @@
                 const itemElement = document.createElement('article');
                 itemElement.classList.add('item');
                 itemElement.innerHTML = `
-                            <a class="item-link" href="/post/${post.id}">
+                            <a class="item-link" href="api_post/post=${post.postNo}">
                                 <div class="item-photo">
                                     <img src="${post.postFile}" alt="${post.postTitle}">
                                 </div>

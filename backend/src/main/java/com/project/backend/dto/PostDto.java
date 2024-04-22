@@ -9,6 +9,7 @@ import lombok.Setter;
 public class PostDto {
     private String postNo;
     private String postTitle;
+    private String userNickname;
     private String postContent;
     private String postFile;
     private String userNo;

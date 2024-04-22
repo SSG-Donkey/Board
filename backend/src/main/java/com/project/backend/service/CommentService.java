@@ -2,20 +2,20 @@ package com.project.backend.service;
 
 import com.project.backend.dto.CommentDto;
 import com.project.backend.mappers.CommentMapper;
-
-import java.util.List;
-
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@Log
 public class CommentService {
     @Autowired
     CommentMapper commentMapper;
 
     public List<CommentDto> selectCommentByPostNo(String postNo){
         List<CommentDto> res = commentMapper.selectCommentByPostNo(postNo);
-
         return res;
     }
 

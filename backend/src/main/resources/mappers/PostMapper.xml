@@ -27,7 +27,7 @@
     </select>
 
     <select id="findPostByNo" parameterType="string" resultType="com.project.backend.dto.PostDto">
-        SELECT * FROM post WHERE post_no = #{getPostNo}
+        SELECT * FROM post p JOIN user u ON p.user_no = u.user_no WHERE  post_no = #{getPostNo}
     </select>
 
     <select id="findPostByCategory" parameterType="string" resultType="com.project.backend.dto.PostDto">

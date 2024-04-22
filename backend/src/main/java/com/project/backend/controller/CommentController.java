@@ -2,15 +2,16 @@ package com.project.backend.controller;
 
 import com.project.backend.dto.CommentDto;
 import com.project.backend.service.CommentService;
-
-import java.util.List;
-
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@Log
 @RequestMapping("/comment")
 public class CommentController {
     @Autowired
@@ -23,8 +24,24 @@ public class CommentController {
 
     //댓글 등록하기
     @PostMapping("/insertComment")
-    public int insertComment(@RequestBody CommentDto commentDto){
-        return commentService.insertComment(commentDto);
+    public String insertComment(@ModelAttribute CommentDto commentDto) {
+        log.info("controller 진입");
+        int posts = commentService.insertComment(commentDto);
+        if (posts == 1) {
+            String html = "<script type=\"text/javascript\">\n" +
+                    "\t\talert(\"게시글 추가 되었습니다. \");\n" +
+                    "\t\tlocation.href = \"/boardDetail.html?post=" + commentDto.getPostNo() + "\";\n" +
+                    "</script>";
+            return html;
+        }
+//DB에 값 저장안된경우
+        else {
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"게시글 등록 실패 하였습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+        }
     }
 
     //댓글 수정하기
