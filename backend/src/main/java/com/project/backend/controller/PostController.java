@@ -107,7 +107,7 @@ public class PostController {
             return html;
         }
     }
-    //게시글 작성 끝
+    //게시글 작성 완료
 
 //    @GetMapping("/board")
 //    public String showBoard(@RequestParam(value = "category", required = false, defaultValue = "all") String categoryNo, Model model) {
