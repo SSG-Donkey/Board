@@ -4,7 +4,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +15,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +25,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class S3ImageService {
-
-    private final AmazonS3 amazonS3; // Amazon S3 클라이언트를 주입받음
+    @Setter(onMethod_ = @Autowired)
+    private AmazonS3 amazonS3; // Amazon S3 클라이언트를 주입받음
 
     @Value("${cloud.aws.s3.bucketName}") // application.properties에서 설정한 S3 버킷 이름을 주입받음
     private String bucketName;
@@ -31,7 +34,7 @@ public class S3ImageService {
     // 이미지 업로드 메서드
     public String upload(MultipartFile image) throws Exception {
         // 이미지가 비어 있거나 파일 이름이 없는 경우 예외를 던짐
-        if(image.isEmpty() || Objects.isNull(image.getOriginalFilename())){
+        if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
             throw new Exception();
         }
         // 이미지 업로드 메서드 호출
@@ -82,7 +85,7 @@ public class S3ImageService {
         // S3에 요청할 때 사용할 ByteArrayInputStream 생성
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-        try{
+        try {
             // S3에 이미지를 업로드하기 위한 PutObjectRequest 생성
             PutObjectRequest putObjectRequest =
                     new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata)
@@ -90,9 +93,9 @@ public class S3ImageService {
 
             // 실제로 S3에 이미지 데이터를 넣는 부분
             amazonS3.putObject(putObjectRequest); // 이미지를 S3에 업로드
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception();
-        }finally {
+        } finally {
             byteArrayInputStream.close();
             is.close();
         }
@@ -103,20 +106,20 @@ public class S3ImageService {
     // S3에서 이미지를 삭제하는 메서드
     public void deleteImageFromS3(String imageAddress) throws Exception {
         String key = getKeyFromImageAddress(imageAddress); // 이미지 주소로부터 S3 키 추출
-        try{
+        try {
             amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key)); // S3에서 이미지 삭제
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception();
         }
     }
 
     // 이미지 주소로부터 S3 키를 추출하는 메서드
     private String getKeyFromImageAddress(String imageAddress) throws Exception {
-        try{
+        try {
             URL url = new URL(imageAddress);
-            String decodingKey = URLDecoder.decode(url.getPath(), "UTF-8");
+            String decodingKey = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8);
             return decodingKey.substring(1); // 맨 앞의 '/' 제거
-        }catch (MalformedURLException | UnsupportedEncodingException e){
+        } catch (MalformedURLException e) {
             throw new Exception();
         }
     }

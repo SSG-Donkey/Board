@@ -1,35 +1,19 @@
 package com.project.backend.service;
 
+import com.project.backend.dto.PostDto;
+import com.project.backend.mappers.PostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.project.backend.dto.PostDto;
-import com.project.backend.mappers.PostMapper;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PostService {
     @Autowired
     PostMapper postMapper;
 
-    @Autowired
-    S3ImageService s3ImageService;
-
-
-    public int insertPost(String post_title,String post_content,MultipartFile post_file,Integer user_no,Integer post_views,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
-     //   System.out.print ("s3이미지명:");
-        //
-        String post_file1=s3ImageService.upload(post_file);
-      //  System.out.println(post_file1);
-
-        int res = postMapper.insertPost(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point);
-        //addBasicImage(res);
-
-        return res;
-    }
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
         Map<String, Object> params = new HashMap<>();
         int offset = (page - 1) * pageSize;

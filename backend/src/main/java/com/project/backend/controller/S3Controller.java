@@ -1,6 +1,7 @@
 package com.project.backend.controller;
 
 import com.project.backend.service.S3ImageService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,8 @@ import java.io.File;
 
 @Controller
 public class S3Controller {
-
-    @Autowired
-    S3ImageService s3ImageService;
+    @Setter(onMethod_ = @Autowired)
+    private S3ImageService s3ImageService;
 
     @PostMapping("/s3/upload")
     public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image) throws Exception {

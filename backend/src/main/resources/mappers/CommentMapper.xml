@@ -4,9 +4,10 @@
 
 
     <select id="selectCommentByPostNo" parameterType="String" resultType="com.project.backend.dto.CommentDto">
-        SELECT comment_no, user_no, post_no, comment_content, comment_date, is_chosen
-        FROM comment
-        WHERE post_no = #{post_no}
+        SELECT c.comment_no, c.user_no, c.post_no, u.user_nickname, c.comment_content, c.comment_date, c.is_chosen
+        FROM comment c
+        JOIN user u ON c.user_no = u.user_no
+        WHERE c.post_no = #{post_no}
     </select>
 
     <insert id="insertComment" parameterType="com.project.backend.dto.CommentDto">

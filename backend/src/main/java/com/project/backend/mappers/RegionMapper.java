@@ -1,10 +1,9 @@
 package com.project.backend.mappers;
 
-import java.util.List;
-
+import com.project.backend.dto.RegionDto;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.project.backend.dto.RegionDto;
+import java.util.List;
 
 @Mapper
 public interface RegionMapper {
