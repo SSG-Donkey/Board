@@ -62,7 +62,7 @@ jobs:
 
       - name: Apply Kubernetes resources with kustomize
         run: |
-          cd ./k8s-manifest-repo/overlays/dev/
+          cd SSG-Donkey/k8s-manifest-repo/overlays/dev/
           kustomize build | kubectl apply -f -
 
 env:
