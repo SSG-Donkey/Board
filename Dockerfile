@@ -8,7 +8,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # 호스트 시스템에 있는 빌드된 JAR 파일을 컨테이너 내부의 /app 디렉토리로 복사
-COPY target/*.jar /app/app.jar
+COPY ./backend/build/libs/*.jar /app/app.jar
 
 # 컨테이너가 시작될 때 실행할 명령을 지정
 CMD ["java", "-jar", "/app/app.jar"]
