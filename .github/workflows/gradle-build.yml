@@ -28,11 +28,11 @@ jobs:
 
       - name: Build with Gradle Wrapper
         run: |
+          cd ./backend/
           ./gradlew build
         
       - name: Build Docker image
         run: |
-          cd ./backend/
           docker build -t my-spring-app .
       
       - name: Tag Docker image
