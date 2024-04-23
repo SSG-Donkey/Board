@@ -70,6 +70,7 @@ jobs:
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig --name eks-demo --region ap-northeast-2
+          export KUBECONFIG=$HOME/.kube/config
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
