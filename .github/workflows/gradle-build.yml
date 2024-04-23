@@ -67,6 +67,9 @@ jobs:
           cat kustomization.yaml
         working-directory: ./k8s-manifest-repo/overlays/dev
 
+      - name: Create directory for kubeconfig
+        run: mkdir -p $HOME/.kube
+
       - name: Update kubeconfig
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET_NAME }}" > $HOME/.kube/config
