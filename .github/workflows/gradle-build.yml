@@ -54,7 +54,17 @@ jobs:
         run: |
           docker push $ECR_REGISTRY/my-spring-app:$IMAGE_TAG
 
+      # Kustomize를 사용하여 Kubernetes 리소스를 빌드하고 적용합니다.
+      - name: Install kustomize
+        run: |
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          sudo mv kustomize /usr/local/bin
+
+      - name: Apply Kubernetes resources with kustomize
+        run: |
+          cd ./k8s-manifest-repo/overlays/dev/
+          kustomize build | kubectl apply -f -
+
 env:
   ECR_REGISTRY: 227250033304.dkr.ecr.ap-northeast-2.amazonaws.com/demo-testrepo
   IMAGE_TAG: latest
-
