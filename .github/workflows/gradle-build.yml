@@ -80,11 +80,6 @@ jobs:
         run: |
           kubectl apply -f . --validate=false
         working-directory: ./k8s-manifest-repo/overlays/dev
-        
-      - name: Apply Kubernetes resources
-        run: |
-          kubectl apply -f .
-        working-directory: ./k8s-manifest-repo/overlays/dev
 
       - name: Commit files
         run: |
