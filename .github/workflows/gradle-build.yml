@@ -82,7 +82,7 @@ jobs:
 
       - name: Apply Kubernetes resources 
         run: |
-          kubectl apply -f . 
+          kubectl apply -f . --validate=false
         working-directory: ./k8s-manifest-repo/overlays/dev
 
       - name: Commit files
