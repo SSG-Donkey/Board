@@ -1,0 +1,129 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Main Styles */
+main {
+    max-width: 800px;
+    margin: 80px auto 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* 원하는 만큼의 간격을 설정합니다. */
+}
+
+main p {
+    font-size: 16px;
+}
+
+/* Form Styles */
+form {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#pay {
+    color: #ff6347;
+    font-weight: bold;
+}
+
+#state {
+    margin: 10px 0;
+}
+
+.input-button {
+    margin-left: 10px;
+    width: 80px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-button:hover {
+    background-color: #0056b3;
+}
+
+/* Post Styles */
+.post-title {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.post-info,
+.comments {
+    margin-top: 20px;
+}
+
+.post-content {
+    line-height: 1.6;
+}
+
+.content{
+    margin: 110px 0 0 0;
+}
+
+/* Comment Styles */
+.comment {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-list {
+    margin-top: 20px;
+}
+
+.comment-info {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    font-size: 16px;
+    color: #333;
+}
+
+.comments h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.comments input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.comments p {
+    font-size: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments li {
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
+}

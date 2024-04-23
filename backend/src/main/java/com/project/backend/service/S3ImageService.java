@@ -35,7 +35,10 @@ public class S3ImageService {
     public String upload(MultipartFile image) throws Exception {
         // 이미지가 비어 있거나 파일 이름이 없는 경우 예외를 던짐
         if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
-            throw new Exception();
+            // image가 null일 경우 logo image 입력
+            String filename = "https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png";
+
+            return null;
         }
         // 이미지 업로드 메서드 호출
         return this.uploadImage(image);

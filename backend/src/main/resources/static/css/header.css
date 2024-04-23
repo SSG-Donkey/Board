@@ -7,6 +7,10 @@ header {
   width: 100%;
   max-width: 100vw;
   z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
 .header-wrap {
@@ -25,8 +29,11 @@ header {
   margin-right: 4rem;
 }
 
-.logo span {
+.logo > a {
   margin: 0.1rem 0;
+  list-style: none;
+  display: flex;
+  padding: 0;
 }
 
 .category {
