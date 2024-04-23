@@ -50,21 +50,36 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         
-      - name: Push Docker image to Amazon ECR
-        run: |
-          docker push $ECR_REGISTRY/my-spring-app:$IMAGE_TAG
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
 
-      # Kustomize를 사용하여 Kubernetes 리소스를 빌드하고 적용합니다.
-      - name: Install kustomize
-        run: |
-          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-          sudo mv kustomize /usr/local/bin
+      - name: Checkout kustomize repository
+        uses: actions/checkout@v2
+        with:
+          repository: SSG-Donkey/k8s-manifest-repo
+          ref: main
+          token: ${{ secrets.ACTION_TOKEN }}
+          path: k8s-manifest-repo
 
-      - name: Apply Kubernetes resources with kustomize
+      - name: Update Kubernetes resources
         run: |
-          cd ../../..
-          cd k8s-manifest-repo/overlays/dev
-          kustomize build | kubectl apply -f -
+          kustomize edit set image demo-testrepo/my-spring-app=${{ steps.login-ecr.outputs.registry }}/demo-testrepo/my-spring-app:${{ github.sha }}
+          cat kustomization.yaml
+        working-directory: ./k8s-manifest-repo/overlays/dev
+
+      - name: Apply Kubernetes resources
+        run: |
+          kubectl apply -f .
+        working-directory: ./k8s-manifest-repo/overlays/dev
+
+      - name: Commit files
+        run: |
+          git config --global user.email "dkehdrn@naver.com"
+          git config --global user.name "namjyung"
+          git add .
+          git commit -m "Update image tag for board-app"
+          git push
+        working-directory: ./k8s-manifest-repo
 
 env:
   ECR_REGISTRY: 227250033304.dkr.ecr.ap-northeast-2.amazonaws.com/demo-testrepo
