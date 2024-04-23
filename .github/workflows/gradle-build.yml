@@ -75,10 +75,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
 
-      # 추가할 수 있는 임시적인 오류 회피 방법
-      - name: Apply Kubernetes resources with validation disabled
+     
+      - name: Apply Kubernetes resources 
         run: |
-          kubectl apply -f . --validate=false
+          kubectl apply -f . 
         working-directory: ./k8s-manifest-repo/overlays/dev
 
       - name: Commit files
