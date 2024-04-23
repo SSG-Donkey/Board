@@ -27,7 +27,9 @@ jobs:
         run: chmod +x ./backend/gradlew
 
       - name: Build with Gradle Wrapper
-        run: ./backend/gradlew build
+        run: |
+          cd ./backend/
+          ./gradlew build
         
       - name: Build Docker image
         run: |
