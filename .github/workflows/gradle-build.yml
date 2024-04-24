@@ -80,10 +80,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
 
-      - name: Apply Kubernetes resources 
-        run: |
-          kubectl apply -f . --validate=false
-        working-directory: ./k8s-manifest-repo/overlays/dev
 
       - name: Commit files
         run: |
