@@ -76,7 +76,7 @@ jobs:
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
         env:
           IMAGE_URI: ${{ env.IMAGE_URI }}
-
+      
       - name: Commit and push the updated board-deployment.yaml
         run: |
           git add base/board-deployment.yaml
@@ -85,3 +85,10 @@ jobs:
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
         env:
           IMAGE_URI: ${{ env.IMAGE_URI }}
+      
+      - name: Delete old ReplicaSet
+        run: |
+          kubectl delete replicaset -l app=board --namespace=default
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG_SECRET_NAME }}
+
