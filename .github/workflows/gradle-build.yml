@@ -2,9 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build-and-push:
@@ -49,6 +47,10 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Push Docker image to Amazon ECR
+        run: |
+          docker push $ECR_REGISTRY/my-spring-app:$IMAGE_TAG  
         
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
