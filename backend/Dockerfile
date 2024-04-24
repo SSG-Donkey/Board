@@ -1,14 +1,8 @@
-# Docker 이미지의 베이스 이미지를 지정
+# 기본 Java 환경을 사용하는 Docker 이미지
 FROM openjdk:17-jdk
 
-# 컨테이너 내부에 애플리케이션을 설치할 디렉토리를 생성
-RUN mkdir /app
+# 애플리케이션 JAR 파일을 이미지로 복사 #build/libs/ 경로는 Gradle 빌드 후 JAR 파일이 위치하는 곳입니다.
+COPY build/libs/*.jar app.jar
 
-# 작업 디렉토리를 /app으로 설정
-WORKDIR /app
-
-# 호스트 시스템에 있는 빌드된 JAR 파일을 컨테이너 내부의 /app 디렉토리로 복사
-COPY ./backend/build/libs/*.jar /app/app.jar
-
-# 컨테이너가 시작될 때 실행할 명령을 지정
-CMD ["java", "-jar", "/app/app.jar"]
+# 애플리케이션 실행
+CMD ["java", "-jar", "/app.jar"]
