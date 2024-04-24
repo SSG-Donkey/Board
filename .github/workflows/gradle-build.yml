@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-
+      
       - name: Set up JDK 17 with Zulu
         uses: actions/setup-java@v2
         with:
@@ -69,17 +69,18 @@ jobs:
           git config user.email "actions@github.com"
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
 
-      - name: Update Kubernetes resources with new image tag
+      - name: Update user-deployment.yaml with new image URI and tag
         run: |
-          kustomize edit set image donkey-board=$IMAGE_URI
-        working-directory: ${{ github.workspace }}/k8s-manifest-repo/base
+          sed -i "s|image: .*|image: $IMAGE_URI|" ./base/user-deployment.yaml
+          cat ./base/user-deployment.yaml # For debugging purposes
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
         env:
           IMAGE_URI: ${{ env.IMAGE_URI }}
 
-      - name: Commit and push the updated manifest
+      - name: Commit and push the updated user-deployment.yaml
         run: |
-          git add .
-          git commit -m "Update image tag for donkey-board to $IMAGE_URI"
+          git add base/user-deployment.yaml
+          git commit -m "Update image URI for donkey-board to $IMAGE_URI"
           git push
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
         env:
