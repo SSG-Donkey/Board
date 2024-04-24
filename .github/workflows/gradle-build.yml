@@ -69,17 +69,17 @@ jobs:
           git config user.email "actions@github.com"
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
 
-      - name: Update user-deployment.yaml with new image URI and tag
+      - name: Update board-deployment.yaml with new image URI and tag
         run: |
-          sed -i "s|image: .*|image: $IMAGE_URI|" ./base/user-deployment.yaml
-          cat ./base/user-deployment.yaml # For debugging purposes
+          sed -i "s|image: .*|image: $IMAGE_URI|" ./base/board-deployment.yaml
+          cat ./base/board-deployment.yaml # For debugging purposes
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
         env:
           IMAGE_URI: ${{ env.IMAGE_URI }}
 
-      - name: Commit and push the updated user-deployment.yaml
+      - name: Commit and push the updated board-deployment.yaml
         run: |
-          git add base/user-deployment.yaml
+          git add base/board-deployment.yaml
           git commit -m "Update image URI for donkey-board to $IMAGE_URI"
           git push
         working-directory: ${{ github.workspace }}/k8s-manifest-repo
