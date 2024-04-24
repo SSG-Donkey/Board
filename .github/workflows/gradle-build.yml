@@ -91,5 +91,5 @@ jobs:
         working-directory: ./k8s-manifest-repo
 
 env:
-  ECR_REGISTRY: 227250033304.dkr.ecr.ap-northeast-2.amazonaws.com/demo-testrepo
+  ECR_REGISTRY: 227250033304.dkr.ecr.ap-northeast-2.amazonaws.com/demo-testrepo/my-spring-app
   IMAGE_TAG: latest
