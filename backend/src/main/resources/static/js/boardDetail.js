@@ -20,13 +20,14 @@ function loadPostNumber(post) {
             itemElement.innerHTML = `
                         <main>
                             <section class="post-detail">
-                            <p id="state" >나눔 중</p>
-                            <h1 class="post-title">제목:  ${content.postTitle}</h1>
-                            <p id="pay" class="hidden">책임비 결제</p>
-                            <div>
-                            <p>작성자 : ${content.userNickname}</p>
+                                <div class="post-header">
+                                    <p id="state" >나눔 중</p>
+                                    <h1 class="post-title">제목:  ${content.postTitle}</h1>
+                                    <p id="pay" class="hidden">책임비 결제</p>
+                                    <p>작성자 : ${content.userNickname}</p>
+                                </div>
                             <img src=${content.postFile} alt="게시물 사진">
-                            </div>
+                           
                             <div class="post-info">
                                 <p class="post-content">내용: ${content.postContent}</p>
                                 <div class="comments">
