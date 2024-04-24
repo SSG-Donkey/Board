@@ -1,57 +1,57 @@
-name: Java CI with Gradle
+name: Build and Deploy Spring Boot Application
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-        
-      - name: Set up JDK 17
+
+      - name: Set up JDK 17 with Zulu
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'zulu'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      - name: Set executable permission for gradlew
+        run: chmod +x ./gradlew
+        working-directory: ./backend
 
-      - name: Grant execute permission to Gradle Wrapper
-        run: chmod +x ./backend/gradlew
+      - name: Set Jasypt Encryptor Password
+        run: echo "jasypt.encryptor.password=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}" >> ./src/main/resources/application.properties
+        working-directory: ./backend
 
-      - name: Build with Gradle Wrapper
-        run: |
-          cd ./backend/
-          ./gradlew build
-        
-      - name: Build Docker image
-        run: |
-          docker build -t my-spring-app .
-      
-      - name: Tag Docker image
-        run: |
-          docker tag my-spring-app:latest $ECR_REGISTRY/my-spring-app:$IMAGE_TAG
-      
+      - name: Build with Gradle
+        run: ./gradlew build
+        working-directory: ./backend
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
-      
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      
-      - name: Push Docker image to Amazon ECR
+
+      - name: Build, tag, and push Docker image to Amazon ECR
         run: |
-          docker push $ECR_REGISTRY/my-spring-app:$IMAGE_TAG  
-        
+          TAG_NAME=$(date +'%Y%m%d%H%M%S')
+          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/donkey-board:$TAG_NAME
+          docker build -f Dockerfile -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+        working-directory: ./backend
+        env:
+          TZ: Asia/Seoul
+
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
 
@@ -63,35 +63,24 @@ jobs:
           token: ${{ secrets.ACTION_TOKEN }}
           path: k8s-manifest-repo
 
-      - name: Update Kubernetes resources
+      - name: Setup Git identity
         run: |
-          kustomize edit set image demo-testrepo/my-spring-app=${{ steps.login-ecr.outputs.registry }}/demo-testrepo/my-spring-app:${{ github.sha }}
-          cat kustomization.yaml
-        working-directory: ./k8s-manifest-repo/overlays/dev
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
 
-      - name: Create directory for kubeconfig
-        run: mkdir -p $HOME/.kube
-
-      - name: Update kubeconfig
+      - name: Update Kubernetes resources with new image tag
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET_NAME }}" > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-          aws eks update-kubeconfig --name eks-demo --region ap-northeast-2
+          kustomize edit set image donkey-board=$IMAGE_URI
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo/base
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-northeast-2
+          IMAGE_URI: ${{ env.IMAGE_URI }}
 
-
-      - name: Commit files
+      - name: Commit and push the updated manifest
         run: |
-          git config --global user.email "dkehdrn@naver.com"
-          git config --global user.name "namjyung"
           git add .
-          git commit -m "Update image tag for board-app"
+          git commit -m "Update image tag for donkey-board to $IMAGE_URI"
           git push
-        working-directory: ./k8s-manifest-repo
-
-env:
-  ECR_REGISTRY: 227250033304.dkr.ecr.ap-northeast-2.amazonaws.com/demo-testrepo
-  IMAGE_TAG: latest
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
+        env:
+          IMAGE_URI: ${{ env.IMAGE_URI }}
