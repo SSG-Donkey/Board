@@ -12,11 +12,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
       
-      - name: Set up JDK 17 with Zulu
+      - name: Set up JDK 17 with Oracle JDK
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'zulu'
+          distribution: 'adopt'
 
       - name: Set executable permission for gradlew
         run: chmod +x ./gradlew
