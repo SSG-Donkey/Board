@@ -115,7 +115,7 @@ public class PostController {
     //게시글 작성 끝// 게시글 상세페이지 시작
     @GetMapping("/post/{postNo}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> post(@PathVariable String postNo) {
+        public ResponseEntity<Map<String, Object>> post(@PathVariable String postNo) {
         //log.info("게시물 상세 페이지 ");
         PostDto content = postService.findPostByNo(postNo);
         List<CommentDto> comment = commentService.selectCommentByPostNo(postNo);

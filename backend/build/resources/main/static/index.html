@@ -199,7 +199,7 @@
     const postsList = document.getElementById('posts-list');
 
     //메인 화면 뿌리기
-    fetch('/api_post/getRecentPost')
+    fetch('/api_post/getRecentPosts')
         .then(response => response.json())
         .then(data => {
             const itemsWrap = document.querySelector('.items-wrap');

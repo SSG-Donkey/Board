@@ -81,9 +81,6 @@ public class PostService {
     }
 
     public List<PostDto> findPostByCategory(String categoryName) {
-        System.out.println("디버그 시작");
-        System.out.println(categoryName);
-        //List<PostDto> res = postMapper.find_post_All();
         List<PostDto> res = postMapper.findPostByCategory(categoryName);
         addBasicImage(res);
         return res;
