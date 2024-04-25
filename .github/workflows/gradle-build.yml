@@ -91,7 +91,7 @@ jobs:
         run: |
           echo "Compressing all report files..."
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-          mkdir report_files
+          mkdir -p report_files/backend/tests
           REPORT_DIRS=$(find . -type d -path '*/build/reports/tests/test')
           for dir in $REPORT_DIRS; do
             module_path=$(echo $dir | awk -F'/build/' '{print $1}' | cut -c 3-)
