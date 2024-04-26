@@ -40,7 +40,7 @@ public class PostService {
     }
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
         Map<String, Object> params = new HashMap<>();
-        int offset = (page - 1) * pageSize;
+        int offset = (page) * pageSize;
         params.put("offset", offset);
         params.put("limit", pageSize);
 
@@ -84,12 +84,8 @@ public class PostService {
 
     //카테고리별 조회
     public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
-        int offset = (page-1) * size;
-
-        log.info("offset : " + offset);
-
+        int offset = (page) * size;
         List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
-
         addBasicImage(posts);
         long totalCount = postMapper.getPostCountByCategory(categoryNo);
         int totalPages = (int) Math.ceil((double) totalCount / size);
