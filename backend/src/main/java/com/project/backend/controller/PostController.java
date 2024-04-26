@@ -6,6 +6,7 @@ import com.project.backend.dto.PostDto;
 import com.project.backend.service.PostService;
 import com.project.backend.service.CommentService;
 import com.project.backend.service.S3ImageService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api_post")
+@Log
 public class PostController {
 
     @Autowired
@@ -61,6 +63,9 @@ public class PostController {
     public ResponseEntity<PageResultDto<PostDto>> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
                                                                    @RequestParam(defaultValue = "10") int size) {
         PageResultDto<PostDto>  posts;
+
+        log.info("page : " + page);
+        log.info("size : " + size);
 
         if (categoryNo.equals("null"))
             posts = postService.findPostByCategory(null,page, size);

@@ -85,7 +85,11 @@ public class PostService {
     //카테고리별 조회
     public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
         int offset = (page) * size;
+
+        log.info("offset : " + offset);
+
         List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
+
         addBasicImage(posts);
         long totalCount = postMapper.getPostCountByCategory(categoryNo);
         int totalPages = (int) Math.ceil((double) totalCount / size);
