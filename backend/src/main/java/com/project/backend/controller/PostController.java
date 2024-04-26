@@ -1,6 +1,7 @@
 package com.project.backend.controller;
 
 import com.project.backend.dto.CommentDto;
+import com.project.backend.dto.PageResultDto;
 import com.project.backend.dto.PostDto;
 import com.project.backend.service.PostService;
 import com.project.backend.service.CommentService;
@@ -54,19 +55,19 @@ public class PostController {
         return new ResponseEntity<>(postService.findPostByNo(getPostNo), HttpStatus.OK);
     }
 
-    //3. 카테고리별 게시글 조회
+    //카테고리별 게시글 조회
     //http://localhost:8080/board.html?category=1
     @GetMapping("/category/{categoryNo}")
-    @ResponseBody
-    public List<PostDto> getCategoryPosts(@PathVariable String categoryNo) {
-        List<PostDto> posts;
+    public ResponseEntity<PageResultDto<PostDto>> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
+                                                                   @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
 
         if (categoryNo.equals("null"))
-            posts = postService.findPostByCategory(null);
+            posts = postService.findPostByCategory(null,page, size);
         else
-            posts = postService.findPostByCategory(categoryNo);
+            posts = postService.findPostByCategory(categoryNo,page, size);
 
-        return posts;
+        return ResponseEntity.ok(posts);
     }
 
     // 게시글작성 시작
@@ -134,4 +135,14 @@ public class PostController {
 //        model.addAttribute("categoryNo", categoryNo);
 //        return "board";
 //    }
+    //검색하기
+    @GetMapping("/search")
+    public ResponseEntity<PageResultDto<PostDto>> search(@RequestParam String searchTerm, @RequestParam(defaultValue = "1") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        PageResultDto<PostDto>  posts;
+
+        posts = postService.searchPost(searchTerm,page, size);
+
+        return ResponseEntity.ok(posts);
+    }
 }
