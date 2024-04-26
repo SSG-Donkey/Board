@@ -84,7 +84,7 @@ public class PostService {
 
     //카테고리별 조회
     public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
-        int offset = (page) * size;
+        int offset = (page-1) * size;
 
         log.info("offset : " + offset);
 
