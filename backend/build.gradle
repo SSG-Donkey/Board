@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'//암호화
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' //로그
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.0'
+
     //implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' //AWS
 
     //Swagger 3.0.0
