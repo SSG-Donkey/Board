@@ -36,6 +36,7 @@ public class S3ImageService {
         // 이미지가 비어 있거나 파일 이름이 없는 경우 예외를 던짐
         if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
             // image가 null일 경우 logo image 입력
+            return null;
         }
         // 이미지 업로드 메서드 호출
         return this.uploadImage(image);
