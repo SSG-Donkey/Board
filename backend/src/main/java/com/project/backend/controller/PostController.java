@@ -83,14 +83,14 @@ public class PostController {
                               @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-        // System.out.print("요청옴 \n");
+         System.out.print("요청옴 \n");
         // System.out.println("File Name: " + post_file.getOriginalFilename());
         //  System.out.println("File Size: " + post_file.getSize() + " bytes");
         //  System.out.println("Content Type: " + post_file.getContentType());
         //  System.out.print(post_file);
 
-        //  System.out.printf("지역: %s , 카테고리종류:%s\n",region_no,post_category);
-        //   System.out.printf("제목 :%s, 내용:%s\n",post_title,post_content);
+          System.out.printf("지역: %s , 카테고리종류:%s\n",region_no,post_category);
+           System.out.printf("제목 :%s, 내용:%s\n",post_title,post_content);
         //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
         int posts = postService.insertPost(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point);
 
