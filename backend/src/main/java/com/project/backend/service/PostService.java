@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.backend.dto.PageResultDto;
 import io.swagger.v3.oas.annotations.links.Link;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class PostService {
         return result;
     }
 
+    //최근 매물 조회
     public List<PostDto> getRecentPost() {
         List<PostDto> res = postMapper.getRecentPost();
 
@@ -80,13 +82,30 @@ public class PostService {
         return postDto;
     }
 
-    public List<PostDto> findPostByCategory(String categoryName) {
-        System.out.println("디버그 시작");
-        System.out.println(categoryName);
-        //List<PostDto> res = postMapper.find_post_All();
-        List<PostDto> res = postMapper.findPostByCategory(categoryName);
-        addBasicImage(res);
-        return res;
+    //카테고리별 조회
+    public PageResultDto<PostDto> findPostByCategory(String categoryNo, int page, int size) {
+        int offset = (page) * size;
+
+        log.info("offset : " + offset);
+
+        List<PostDto> posts = postMapper.findPostByCategory(categoryNo,offset, size);
+
+        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountByCategory(categoryNo);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
+    //검색하기
+    public PageResultDto<PostDto> searchPost(String searchTerm, int page, int size) {
+        int offset = (page) * size;
+        List<PostDto> posts = postMapper.findPostBySearch(searchTerm,offset, size);
+        addBasicImage(posts);
+        long totalCount = postMapper.getPostCountBySearch(searchTerm);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return new PageResultDto<>(posts, page, size, totalPages, totalCount);
     }
 
     //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
