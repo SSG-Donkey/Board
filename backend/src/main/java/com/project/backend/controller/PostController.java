@@ -1,24 +1,28 @@
 package com.project.backend.controller;
 
-import com.project.backend.dto.CommentDto;
-import com.project.backend.dto.PageResultDto;
-import com.project.backend.dto.PostDto;
-import com.project.backend.service.PostService;
-import com.project.backend.service.CommentService;
-import com.project.backend.service.S3ImageService;
-import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.project.backend.dto.CommentDto;
+import com.project.backend.dto.PageResultDto;
+import com.project.backend.dto.PostDto;
+import com.project.backend.service.CommentService;
+import com.project.backend.service.PostService;
+
+import lombok.extern.java.Log;
 
 
 @RestController
