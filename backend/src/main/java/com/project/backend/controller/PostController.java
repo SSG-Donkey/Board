@@ -130,6 +130,8 @@ public class PostController {
         PostDto content = postService.findPostByNo(postNo);
         List<CommentDto> comment = commentService.selectCommentByPostNo(postNo);
         Map<String, Object> responseData = new HashMap<>();
+
+        log.info(content.toString());
         responseData.put("content", content);
         if (comment != null) {
             responseData.put("comment", comment);
