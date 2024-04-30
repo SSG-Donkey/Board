@@ -2,6 +2,7 @@ package com.project.backend.controller;
 
 import com.project.backend.dto.RegionDto;
 import com.project.backend.service.RegionService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/region")
+@Log
 public class RegionController {
     
     @Autowired
@@ -22,6 +24,12 @@ public class RegionController {
     @GetMapping("/findAll")
     public ResponseEntity<List<RegionDto>> findAllRegions() {
         List<RegionDto> regions = regionService.findAll();
+
+        for (RegionDto el : regions)
+        {
+            log.info(el.toString());
+        }
+
         return new ResponseEntity<>(regions, HttpStatus.OK);
     }
     
