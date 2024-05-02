@@ -28,13 +28,13 @@ public class PostService {
         System.out.println(post_category);
         String post_file1;
         post_file1 = s3ImageService.upload(post_file);
-        if (post_file1 == null) {
-            post_file1 = "https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png";
-        }
+//        if (post_file1 == null) {
+//            post_file1 = "https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png";
+//        }
         System.out.println("image 경로: " + post_file1);
 
         int res = postMapper.insertPost(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point);
-       // addBasicImage(res);
+        // addBasicImage(res);
 
         return res;
     }
