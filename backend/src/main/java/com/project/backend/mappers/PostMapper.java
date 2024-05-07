@@ -25,6 +25,7 @@ public interface PostMapper {
     long getPostCountByCategory(@Param("categoryNo") String categoryNo);
     long getPostCountBySearch(@Param("searchTerm") String searchTerm);
     int insertPost(String post_title , String post_content, String post_file, Integer user_no, Integer post_views ,Integer post_category,Integer region_no,Integer post_status,Integer point);
+    int insertPost2(String post_title , String post_content, String post_file, Integer user_no, Integer post_views ,Integer post_category,Integer region_no,Integer post_status,Integer point,String user_nickname);
 }
 
 
