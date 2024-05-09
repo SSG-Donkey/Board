@@ -92,7 +92,7 @@ public class PostController {
                               @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-         System.out.print("요청옴 \n");
+         System.out.print("write1 요청옴 \n");
         // System.out.println("File Name: " + post_file.getOriginalFilename());
         //  System.out.println("File Size: " + post_file.getSize() + " bytes");
         //  System.out.println("Content Type: " + post_file.getContentType());
@@ -102,6 +102,7 @@ public class PostController {
 
         //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
         int posts = postService.insertPost(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point);
+        System.out.println("글 등록완료");
 
 
         //DB에 값 저장된경우
@@ -135,7 +136,7 @@ public class PostController {
                               @RequestParam("user_nickname")String user_nickname) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-        System.out.print("요청옴 \n");
+        System.out.print("write 2요청옴 \n");
         // System.out.println("File Name: " + post_file.getOriginalFilename());
         //  System.out.println("File Size: " + post_file.getSize() + " bytes");
         //  System.out.println("Content Type: " + post_file.getContentType());
@@ -145,7 +146,7 @@ public class PostController {
 
         //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
         int posts = postService.insertPost2(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point,user_nickname);
-
+        System.out.println("글 등록완료");
 
         //DB에 값 저장된경우
         if (posts == 1) {
