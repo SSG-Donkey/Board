@@ -18,6 +18,7 @@ public class PostDto {
     private String postViews;
     private String postCategory;
     private String regionNo;
+    private String regionName;
     private String postDate;
     private String postStatus;
 
