@@ -1,9 +1,11 @@
 package com.project.backend.controller;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.backend.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private PointService pointService;
 
     @GetMapping("/getAllPosts")
     public ResponseEntity<Map<String, Object>> getAllPosts(
@@ -149,15 +153,7 @@ public class PostController {
         //  System.out.println("File Size: " + post_file.getSize() + " bytes");
         //  System.out.println("Content Type: " + post_file.getContentType());
         //  System.out.print(post_file);
-        System.out.printf("제목: %s\n",post_title);
-        System.out.printf("내용 %s\n",post_content);
-        System.out.printf("유저넘버:%d\n",user_no);
-        System.out.printf("유저닉: %s\n",user_nickname);
-        System.out.printf("포스트뷰:%d\n",post_views);
-        System.out.printf("스태이터스:%d\n",post_status);
-        System.out.printf("카테고리:%d\n",post_category);
-        System.out.printf("포인트:%d\n",point);
-        System.out.printf("리전:%d\n",region_no);
+
 
 
         //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
@@ -215,5 +211,15 @@ public class PostController {
         posts = postService.searchPost(searchTerm,page, size);
 
         return ResponseEntity.ok(posts);
+    }
+    @GetMapping("/point")
+    public Integer showPoint(@RequestParam("user_no") Integer user_no){
+
+        System.out.printf("user_no :%d \n",user_no);
+
+        int res = pointService.showPoint(user_no);
+
+
+        return res;
     }
 }
