@@ -71,7 +71,18 @@ public class YourApplication {
     }
 }       
 ```
+### 2-5. Redis Controller (예시)  git 
+```
+public class RedisController {
 
+    @GetMapping("api/session")
+    public String getSessionId(HttpSession session) {
+        log.info("RedisController 진입");
+        session.setAttribute("name", "treesick");
+        return session.getId();
+    }
+}
+```
 ### pod에서 Redis cache Cluster 구축하는법
 https://tech.kakao.com/2022/02/09/k8s-redis/
 

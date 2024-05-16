@@ -7,6 +7,8 @@ import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -26,12 +28,18 @@ public class RedisConfig {
         redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
         return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
-
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        final RedisTemplate<String, Object> template = new RedisTemplate<>();
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer();
+    }
+    @Bean
+    public RedisTemplate<String, String> redisTemplate() {
+        final RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(springSessionDefaultRedisSerializer()); // 값 직렬화기로 GenericJackson2JsonRedisSerializer 사용
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(springSessionDefaultRedisSerializer());
         template.setConnectionFactory(lettuceConnectionFactory());
-        template.setDefaultSerializer(new StringRedisSerializer());
         return template;
     }
 }
