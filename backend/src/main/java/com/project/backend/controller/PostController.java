@@ -211,7 +211,7 @@ public class PostController {
     }
     @GetMapping("/point")
     public PointDto showUserPoint(@RequestParam("userNo") String userNo) {
-        System.out.printf("userNo: %d\n",userNo);
+        log.info("point 진입 userNo" + userNo);
         return pointService.getUserPoint(userNo);
     }
 }
