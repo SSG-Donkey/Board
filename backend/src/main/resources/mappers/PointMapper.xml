@@ -3,8 +3,8 @@
 <mapper namespace="com.project.backend.mappers.PointMapper">
 
 
-    <select id="showPoint" parameterType="int" resultType="com.project.backend.dto.PointDto">
-        select point from user where user_no = #{userNo}
+    <select id="showPoint"  resultType="com.project.backend.dto.PointDto">
+        select amount from user where user_no = #{userNo}
     </select>
 
 

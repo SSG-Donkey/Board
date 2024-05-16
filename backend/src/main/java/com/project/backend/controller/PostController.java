@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.backend.dto.*;
 import com.project.backend.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.project.backend.dto.CommentDto;
-import com.project.backend.dto.PageResultDto;
-import com.project.backend.dto.PostDto;
 import com.project.backend.service.CommentService;
 import com.project.backend.service.PostService;
 
@@ -155,7 +153,6 @@ public class PostController {
         //  System.out.print(post_file);
 
 
-
         //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
         int posts = postService.insertPost2(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point,user_nickname);
         System.out.println("글 등록완료");
@@ -168,14 +165,16 @@ public class PostController {
                     "</script>";
             return html;
         }
-        //DB에 값 저장안된경우
-        else {
+        else{
             String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 등록 실패 하였습니다. \");" +
+                    "alert(\"로그인 해주시기 바랍니다. \");" +
                     "location.href = \"/board.html\";" +
                     "</script>";
             return html;
+
         }
+        //DB에 값 저장안된경우
+
     }
 
     //게시글 작성 끝// 게시글 상세페이지 시작
@@ -213,13 +212,7 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
     @GetMapping("/point")
-    public Integer showPoint(@RequestParam("user_no") Integer user_no){
-
-        System.out.printf("user_no :%d \n",user_no);
-
-        int res = pointService.showPoint(user_no);
-
-
-        return res;
+    public PointDto showUserPoint(@RequestParam("userNo") String userNo) {
+        return pointService.getUserPoint(userNo);
     }
 }

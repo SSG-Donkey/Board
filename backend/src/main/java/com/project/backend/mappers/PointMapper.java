@@ -1,6 +1,7 @@
 package com.project.backend.mappers;
 
 import com.project.backend.dto.PointDto;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ import java.util.Map;
 @Mapper
 public interface PointMapper {
 
- int showPoint(Integer userNo);
+ PointDto showPoint(@Param("userNo") String userNo);
 
 
 }
