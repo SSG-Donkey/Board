@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.backend.mappers.CommentMapper">
+<mapper namespace="com.project.backend.mappers.PointMapper">
 
 
-    <select id="selectCommentByPostNo" parameterType="int" resultType="com.project.backend.dto.PointDto">
+    <select id="showPoint" parameterType="int" resultType="com.project.backend.dto.PointDto">
         select point from user where user_no = #{userNo}
     </select>
 
