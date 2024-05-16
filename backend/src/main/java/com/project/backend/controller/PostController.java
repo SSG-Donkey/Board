@@ -1,9 +1,11 @@
 package com.project.backend.controller;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.backend.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private PointService pointService;
 
     @GetMapping("/getAllPosts")
     public ResponseEntity<Map<String, Object>> getAllPosts(
@@ -90,17 +94,69 @@ public class PostController {
                               @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-         System.out.print("요청옴 \n");
+         System.out.print("write1 요청옴 \n");
+        // System.out.println("File Name: " + post_file.getOriginalFilename());
+        //  System.out.println("File Size: " + post_file.getSize() + " bytes");
+        //  System.out.println("Content Type: " + post_file.getContentType());
+        //  System.out.print(post_file);
+        System.out.printf("제목: %s\n",post_title);
+        System.out.printf("내용 %s\n",post_content);
+        System.out.printf("유저넘버:%d\n",user_no);
+
+        System.out.printf("포스트뷰:%d\n",post_views);
+        System.out.printf("스태이터스:%d\n",post_status);
+        System.out.printf("카테고리:%d\n",post_category);
+        System.out.printf("포인트:%d\n",point);
+        System.out.printf("리전:%d\n",region_no);
+
+
+        //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
+        int posts = postService.insertPost(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point);
+        System.out.println("글 등록완료");
+
+
+        //DB에 값 저장된경우
+        if (posts == 1) {
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"게시글 추가 되었습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+        }
+        //DB에 값 저장안된경우
+        else {
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"게시글 등록 실패 하였습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+        }
+    }
+
+    @PostMapping("/write2")
+    public String insertPosts2(@RequestParam("post_title") String post_title,
+                              @RequestParam("post_content") String post_content,
+                              @RequestParam("post_file") MultipartFile post_file,
+                              @RequestParam("user_no") Integer user_no,
+                              @RequestParam("post_views") Integer post_views,
+                              @RequestParam("post_category") Integer post_category,
+                              @RequestParam("region_no") Integer region_no,
+                              @RequestParam("post_status") Integer post_status,
+                              @RequestParam("point") Integer point,
+                              @RequestParam("user_nickname")String user_nickname) throws Exception {
+
+        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
+        System.out.print("write 2요청옴 \n");
         // System.out.println("File Name: " + post_file.getOriginalFilename());
         //  System.out.println("File Size: " + post_file.getSize() + " bytes");
         //  System.out.println("Content Type: " + post_file.getContentType());
         //  System.out.print(post_file);
 
-          System.out.printf("지역: %s , 카테고리종류:%s\n",region_no,post_category);
-           System.out.printf("제목 :%s, 내용:%s\n",post_title,post_content);
-        //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
-        int posts = postService.insertPost(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point);
 
+
+        //    System.out.printf("이미지명:%s\n",post_file);  //s3에 저장하는건 모르겠음
+        int posts = postService.insertPost2(post_title, post_content, post_file, user_no, post_views, post_category, region_no, post_status, point,user_nickname);
+        System.out.println("글 등록완료");
 
         //DB에 값 저장된경우
         if (posts == 1) {
@@ -153,5 +209,15 @@ public class PostController {
         posts = postService.searchPost(searchTerm,page, size);
 
         return ResponseEntity.ok(posts);
+    }
+    @GetMapping("/point")
+    public Integer showPoint(@RequestParam("user_no") Integer user_no){
+
+        System.out.printf("user_no :%d \n",user_no);
+
+        int res = pointService.showPoint(user_no);
+
+
+        return res;
     }
 }
