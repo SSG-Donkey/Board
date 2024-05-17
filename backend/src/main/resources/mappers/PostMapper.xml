@@ -18,7 +18,7 @@
     </delete>
 
     <select id="validatePost" parameterType="map" >
-        SELECT * FROM post
+        SELECT post_no FROM post
         WHERE post_no=#{post_no} AND user_no=#{user_no}
     </select>
 
