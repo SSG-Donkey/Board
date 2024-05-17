@@ -195,6 +195,7 @@ public class PostController {
 
         //DB에 값 저장된경우
         if (posts == 1) {
+            System.out.print("삭제완료  \n");
             String html = "<script type=\"text/javascript\">" +
                     "alert(\"게시글 삭제 되었습니다. \");" +
                     "location.href = \"/board.html\";" +
@@ -202,6 +203,7 @@ public class PostController {
             return html;
         }
         else{
+            System.out.print("삭제 실패 \n");
             String html = "<script type=\"text/javascript\">" +
                     "alert(\"게시글 삭제 실패하였습니다. \");" +
                     "location.href = \"/board.html\";" +
