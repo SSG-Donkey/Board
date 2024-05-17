@@ -185,7 +185,9 @@ public class PostController {
         int post_no=Integer.parseInt(postNo);
         int user_no=Integer.parseInt(userNo);
 
-        System.out.print("delete 요청옴 \n");
+        System.out.print("delete 요청옴! \n");
+        System.out.printf("post_no:%d\n",post_no);
+        System.out.printf("user_no:%d\n",user_no);
 
 
         int posts = postService.deletePost(post_no,user_no);
