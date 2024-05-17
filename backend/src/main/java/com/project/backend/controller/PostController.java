@@ -179,11 +179,11 @@ public class PostController {
 
 
     @PostMapping("/delete")
-    public String deletePosts(@RequestParam("postNo") String post_no,
-                              @RequestParam("userId") String user_no) throws Exception {
-        user_no=Integer.parseInt(user_no);
-        post_no=Integer.parseInt(post_no);
+    public String deletePosts(@RequestParam("postNo") String postNo,
+                              @RequestParam("userNo") String userNo) throws Exception {
 
+        int post_no=Integer.parseInt(postNo);
+        int user_no=Integer.parseInt(userNo);
 
         System.out.print("delete 요청옴 \n");
 
