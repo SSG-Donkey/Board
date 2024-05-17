@@ -62,6 +62,7 @@ public class PostService {
          if(res1==1){
           int res2 = postMapper.deletePost(post_no,user_no);  // 삭제
 
+             return res2;
          }
 
           else{

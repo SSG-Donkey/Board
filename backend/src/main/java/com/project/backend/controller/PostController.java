@@ -178,20 +178,20 @@ public class PostController {
 
 
     @PostMapping("/delete")
-    public String deletePosts(@RequestParam("postNo") String post_no,
-                               @RequestParam("userId") String user_id) throws Exception {
+    public String deletePosts(@RequestParam("postNo") Integer post_no,
+                               @RequestParam("userId") Integer user_no) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("delete 2요청옴 \n");
 
 
-        int posts = postService.deletePost(post_no,user_id);
+        int posts = postService.deletePost(post_no,user_no);
 
 
         //DB에 값 저장된경우
         if (posts == 1) {
             String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 추가 되었습니다. \");" +
+                    "alert(\"게시글 삭제 되었습니다. \");" +
                     "location.href = \"/board.html\";" +
                     "</script>";
             return html;
