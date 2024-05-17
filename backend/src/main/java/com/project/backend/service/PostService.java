@@ -58,7 +58,7 @@ public class PostService {
         System.out.println("삭제디버그 시작");
 
          int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
-
+         System.out.println("유효성 검증 = %d\n",res1);
          if(res1==1){
           int res2 = postMapper.deletePost(post_no,user_no);  // 삭제
 
