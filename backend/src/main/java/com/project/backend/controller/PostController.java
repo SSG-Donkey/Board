@@ -179,7 +179,7 @@ public class PostController {
 
 
     @PostMapping("/delete")
-    public String deletePosts(@RequestParam("postNo") String postNo,
+    public Map<String, String>  deletePosts(@RequestParam("postNo") String postNo,
                               @RequestParam("userNo") String userNo) throws Exception {
 
         int post_no=Integer.parseInt(postNo);
@@ -192,26 +192,17 @@ public class PostController {
 
         int posts = postService.deletePost(post_no,user_no);
         System.out.printf("posts :%d\n",posts);
-
+        Map<String, String> response = new HashMap<>();
         //DB에 값 저장된경우
         if (posts == 1) {
-            System.out.print("삭제완료  \n");
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 삭제 되었습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-        }
-        else{
-            System.out.print("삭제 실패 \n");
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 삭제 실패하였습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-
+            response.put("message", "게시글 삭제 완료 되었습니다.");
+            response.put("redirectUrl", "/board");
+        } else {
+            response.put("message", "게시글 삭제 실패 하였습니다.");
+            response.put("redirectUrl",  "/boardDetail.html?postNo=" + post_no);
         }
         //DB에 값 저장안된경우
+        return response;
 
     }
 
