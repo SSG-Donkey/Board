@@ -203,7 +203,7 @@ public class PostController {
         }
         else{
             String html = "<script type=\"text/javascript\">" +
-                    "alert(\"로그인 해주시기 바랍니다. \");" +
+                    "alert(\"게시글 삭제 실패하였습니다. \");" +
                     "location.href = \"/board.html\";" +
                     "</script>";
             return html;

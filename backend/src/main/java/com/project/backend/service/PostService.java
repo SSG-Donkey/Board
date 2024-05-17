@@ -60,8 +60,9 @@ public class PostService {
          int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
          System.out.printf("유효성 검증 = %d\n",res1);
          if(res1>=1){
+             System.out.println("삭제 시작");
           int res2 = postMapper.deletePost(post_no,user_no);  // 삭제
-
+             System.out.println("삭제 완료");
              return res2;
          }
 
