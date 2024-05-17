@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.project.backend.dto.PostDto;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public interface PostMapper {
     int insertPost2(String post_title , String post_content, String post_file, Integer user_no, Integer post_views ,Integer post_category,Integer region_no,Integer post_status,Integer point,String user_nickname);
     int validatePost(Integer post_no,Integer user_no);
     int deletePost(Integer post_no,Integer user_no);
+    int updatePost(String post_title, String post_content, MultipartFile post_file, Integer post_category, Integer region_no, Integer post_status, Integer point);
 
 }
 

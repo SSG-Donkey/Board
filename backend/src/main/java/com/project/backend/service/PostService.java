@@ -71,10 +71,42 @@ public class PostService {
           }
 
 
+    }
+    //게시글 검증  (작성자가 해당게시글 맞는지)
+    public int validatePost(Integer post_no,Integer user_no) throws Exception {
+        System.out.println("삭제디버그 시작");
+
+        int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
+
+        if(res1==1){
+            int res2 = postMapper.deletePost(post_no,user_no);  // 삭제
+
+            return res2;
+        }
+
+        else{
+
+            return 0;
+        }
 
 
     }
+    //게시글 수정
+    public int updatePost(String post_title,String post_content,MultipartFile post_file,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
+        System.out.println("디버그 시작");
+        System.out.println(post_category);
+        String post_file1;
+        post_file1 = s3ImageService.upload(post_file);
+//        if (post_file1 == null) {
+//            post_file1 = "https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png";
+//        }
+        System.out.println("image 경로: " + post_file1);
 
+        int res = postMapper.insertPost2(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point,user_nickname);
+        // addBasicImage(res);
+
+        return res;
+    }
 
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
         Map<String, Object> params = new HashMap<>();
