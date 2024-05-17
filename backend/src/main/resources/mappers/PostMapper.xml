@@ -17,7 +17,7 @@
         WHERE post_no=#{post_no} AND user_no=#{user_no}
     </delete>
 
-    <select id="validatePost" parameterType="int" >
+    <select id="validatePost" parameterType="int" resultType="int" >
         SELECT post_no FROM post
         WHERE post_no=#{post_no} AND user_no=#{user_no}
     </select>
