@@ -196,7 +196,7 @@ public class PostController {
         //DB에 값 저장된경우
         if (posts == 1) {
             response.put("message", "게시글 삭제 완료 되었습니다.");
-            response.put("redirectUrl", "/board");
+            response.put("redirectUrl", "/board.html");
         } else {
             response.put("message", "게시글 삭제 실패 하였습니다.");
             response.put("redirectUrl",  "/boardDetail.html?postNo=" + post_no);
