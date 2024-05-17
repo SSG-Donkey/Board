@@ -14,9 +14,14 @@ public class PointService {
     public PointDto getUserPoint(String userNo) {
         PointDto res = pointMapper.showPoint(userNo);
         
-        if(null == res.getAmount())
+        if (res != null) {
+            if (res.getAmount() == null) {
+                res.setAmount(0);
+            }
+        } else {
+            res = new PointDto();
             res.setAmount(0);
-        
+        }
         return res;
     }
 }
