@@ -11,6 +11,17 @@
         INSERT INTO post (post_title, post_content, post_file, user_no,post_views ,post_category,region_no,post_status,point,user_nickname)
         VALUES (#{post_title}, #{post_content}, #{post_file}, #{user_no}, #{post_views},#{post_category},#{region_no},#{post_status},#{point},#{user_nickname})
     </insert>
+
+    <delete id="deletePost" parameterType="map" >
+        DELETE post
+        WHERE post_no=#{post_no} AND user_no=#{user_no}
+    </delete>
+
+    <select id="validatePost" parameterType="map" >
+        SELECT * FROM post
+        WHERE post_no=#{post_no} AND user_no=#{user_no}
+    </select>
+
     <select id="findAllPosts" parameterType="map" resultType="com.project.backend.dto.PostDto">
         SELECT post.*, region.region_name as region_name
         FROM post
