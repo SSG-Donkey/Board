@@ -92,7 +92,7 @@ public class PostService {
 
     }
     //게시글 수정
-    public int updatePost(String post_title,String post_content,MultipartFile post_file,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
+    public int updatePost(Integer post_no,String post_title,String post_content,MultipartFile post_file,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
         System.out.println("디버그 시작");
         System.out.println(post_category);
         String post_file1;
@@ -102,7 +102,7 @@ public class PostService {
 //        }
         System.out.println("image 경로: " + post_file1);
 
-        int res = postMapper.insertPost2(post_title,post_content,post_file1,user_no,post_views,post_category,region_no,post_status,point,user_nickname);
+        int res = postMapper.updatePost(post_no,post_title,post_content,post_file1,post_category,region_no,post_status,point);
         // addBasicImage(res);
 
         return res;

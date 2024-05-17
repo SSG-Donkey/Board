@@ -177,42 +177,13 @@ public class PostController {
     //게시글 삭제
 
 
-    @PostMapping("/delete")
-    public String deletePosts(@RequestParam("postNo") Integer post_no,
-                               @RequestParam("userId") Integer user_no) throws Exception {
 
-        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-        System.out.print("delete 2요청옴 \n");
-
-
-        int posts = postService.deletePost(post_no,user_no);
-
-
-        //DB에 값 저장된경우
-        if (posts == 1) {
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 삭제 되었습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-        }
-        else{
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"로그인 해주시기 바랍니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-
-        }
-        //DB에 값 저장안된경우
-
-    }
     @PostMapping("/delete")
     public String deletePosts(@RequestParam("postNo") Integer post_no,
                               @RequestParam("userId") Integer user_no) throws Exception {
 
-        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-        System.out.print("delete 2요청옴 \n");
+
+        System.out.print("delete 요청옴 \n");
 
 
         int posts = postService.deletePost(post_no,user_no);
@@ -248,13 +219,13 @@ public class PostController {
                                 @RequestParam("post_status") Integer post_status,
                                @RequestParam("post_category") Integer post_category,
                                @RequestParam("region_no") Integer region_no,
-                               @RequestParam("point") Integer point,) throws Exception {
+                               @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("update옴 \n");
         int validate =postService.validatePost(post_no,user_no);
         if(validate ==1){
-            int posts = postService.updatePost(post_title, post_content, post_file, user_no, post_category, region_no, post_status, point);
+            int posts = postService.updatePost(post_no,post_title, post_content, post_file, post_category, region_no, post_status, point);
             System.out.println("글 수정완료");
 
             //DB에 값 저장된경우
