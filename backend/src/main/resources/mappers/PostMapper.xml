@@ -13,7 +13,7 @@
     </insert>
 
     <delete id="deletePost" parameterType="map" >
-        DELETE post FROM
+        DELETE FROM post
         WHERE post_no=#{post_no} AND user_no=#{user_no}
     </delete>
 

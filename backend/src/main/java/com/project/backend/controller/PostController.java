@@ -191,7 +191,7 @@ public class PostController {
 
 
         int posts = postService.deletePost(post_no,user_no);
-
+        System.out.printf("posts :%d\n",posts);
 
         //DB에 값 저장된경우
         if (posts == 1) {
