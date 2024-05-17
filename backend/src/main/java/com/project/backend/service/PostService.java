@@ -53,6 +53,26 @@ public class PostService {
 
         return res;
     }
+    //게시글 삭제 서비스
+    public int deletePost(String user_id,String post_no) throws Exception {
+        System.out.println("삭제디버그 시작");
+
+      //  int res1 = postMapper.vailidatePost(); //작성자 , 게시글 유효성 검증
+     //   if(res==1){
+     //       int res2 = postMapper.deletePost();  // 삭제
+     //   }
+
+    //    else{
+
+    //        return 0;
+   //     }
+
+
+
+        return 0;
+    }
+
+
     public Map<String, Object> findPostsWithPagination(int page, int pageSize) {
         Map<String, Object> params = new HashMap<>();
         int offset = (page) * pageSize;

@@ -174,6 +174,39 @@ public class PostController {
         //DB에 값 저장안된경우
 
     }
+    //게시글 삭제
+
+
+    @PostMapping("/delete")
+    public String deletePosts(@RequestParam("postNo") String post_no,
+                               @RequestParam("userId") String user_id) throws Exception {
+
+        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
+        System.out.print("delete 2요청옴 \n");
+
+
+        int posts = postService.deletePost(post_no,user_id);
+
+
+        //DB에 값 저장된경우
+        if (posts == 1) {
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"게시글 추가 되었습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+        }
+        else{
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"로그인 해주시기 바랍니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+
+        }
+        //DB에 값 저장안된경우
+
+    }
 
     //게시글 작성 끝// 게시글 상세페이지 시작
     @GetMapping("/post/{postNo}")
@@ -209,9 +242,12 @@ public class PostController {
 
         return ResponseEntity.ok(posts);
     }
+
+    //포인트 불러오기
     @GetMapping("/point")
     public PointDto showUserPoint(@RequestParam("userNo") String userNo) {
         log.info("point 진입 userNo" + userNo);
         return pointService.getUserPoint(userNo);
     }
+
 }
