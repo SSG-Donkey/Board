@@ -295,9 +295,7 @@ public class PostController {
     @GetMapping("/point")
     public ResponseEntity<PointDto> showUserPoint(@RequestParam("userNo") String userNo) {
         PointDto res = pointService.getUserPoint(userNo);
-
-        log.info("point :: " + res.getPoint());
-
+        
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
