@@ -209,13 +209,13 @@ public class PostController {
     //게시글 수정 유효성검증
     @PostMapping("/update")
     public Map<String, String> updatePost( @RequestParam("postNo") String postNo,
-                                @RequestParam("userNo") String userNo) throws Exception {
+                                @RequestParam("user_no") String user_no) throws Exception {
         int post_no=Integer.parseInt(postNo);
-        int user_no=Integer.parseInt(userNo);
+        int user_no1=Integer.parseInt(user_no);
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("update옴 \n");
         Map<String, String> response = new HashMap<>();
-        int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
+        int validate =postService.validatePost(post_no,user_no1); //작성자 게시글 유효성 검증
 
         if(validate >=1){
             response.put("message", "게시글 수정 페이지로 넘어갑니다.");
