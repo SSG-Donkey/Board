@@ -79,26 +79,11 @@ public class PostService {
 
         int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
 
-        if(res1==1){
-            int res2 = postMapper.deletePost(post_no,user_no);  // 삭제
-
-            return res2;
-        }
-
-        else{
-
-            return 0;
-        }
-
-
-    }
-    public int validatePost2(Integer post_no,Integer user_no) throws Exception {
-        System.out.println("유효디버그 시작");
-
-        int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
         return res1;
 
+
     }
+
     //게시글 수정
     public int editPost(Integer post_no,String post_title,String post_content,Integer user_no,Integer post_category,Integer region_no,Integer point) throws Exception {
         System.out.println("edit디버그 시작");
