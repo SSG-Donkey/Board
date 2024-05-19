@@ -208,29 +208,25 @@ public class PostController {
 
     //게시글 수정
     @PostMapping("/update")
-    public String updatePost(   @RequestParam("postNo") String postNo,
+    public Map<String, String> updatePost(   @RequestParam("postNo") String postNo,
                                 @RequestParam("userNo") String userNo) throws Exception {
         int post_no=Integer.parseInt(postNo);
         int user_no=Integer.parseInt(userNo);
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("update옴 \n");
+        Map<String, String> response = new HashMap<>();
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
 
         if(validate ==1){
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"수정페이지로 넘어갑니다. \");" +
-                    "location.href = \"/editPost.html\";" +
-                    "</script>";
-            return html;
-
+            response.put("post_no", post_no);
+            response.put("message", "게시글 수정 페이지로 넘어갑니다.");
+            response.put("redirectUrl", "/write2.html");
+            return response;
         }
         else{
-
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"수정권한 없습니다 .확인바랍니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
+            response.put("message", "게시글 수정 권한이 없습니다.");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + post_no);
+            return response;
         }
 
         //DB에 값 저장안된경우
