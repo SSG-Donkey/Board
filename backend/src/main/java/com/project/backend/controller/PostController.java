@@ -216,10 +216,10 @@ public class PostController {
         System.out.print("update옴 \n");
         Map<String, String> response = new HashMap<>();
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
-
+        String redirectUrl="https://www.dangnagwi.store/editpost.html?postNo="+postNo;
         if(validate >=1){
             response.put("message", "게시글 수정 페이지로 넘어갑니다.");
-            response.put("redirectUrl", "https://www.dangnagwi.store/editpost.html?postNo="+postNo);
+            response.put("redirectUrl", redirectUrl);
             return response;
         }
         else{
