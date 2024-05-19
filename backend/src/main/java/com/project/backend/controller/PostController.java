@@ -235,18 +235,17 @@ public class PostController {
     public String editPost(@RequestParam("post_no") String postNo,
                                @RequestParam("post_title") String post_title,
                                @RequestParam("post_content") String post_content,
-                               @RequestParam("user_no") String userNo,
                                @RequestParam("post_category") Integer post_category,
                                @RequestParam("region_no") Integer region_no,
                                @RequestParam("point") Integer point) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("edit \n");
-        int post_no=Integer.parseInt(postNo);
-        int user_no=Integer.parseInt(userNo);
+      //  int post_no=Integer.parseInt(postNo);
 
-        int posts = postService.editPost(post_no,post_title,post_content,post_category,region_no,point);
-        System.out.println("글 수정완료");
+
+        //int posts = postService.editPost(post_no,post_title,post_content,post_category,region_no,point);
+        //System.out.println("글 수정완료");
 
 
 
@@ -256,9 +255,7 @@ public class PostController {
                     "</script>";
         return html;
 
-        //DB에 값 저장된경우
 
-        //DB에 값 저장안된경우
 
     }
 
