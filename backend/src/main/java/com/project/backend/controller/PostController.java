@@ -241,6 +241,7 @@ public class PostController {
         System.out.print("finish옴 \n");
         Map<String, String> response = new HashMap<>();
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
+        int finish =postService.finishPost(post_no); //유효성끝나면 업데이트
         String redirectUrl="https://www.dangnagwi.store/boardDetail.html?postNo="+postNo;
         if(validate >=1){
             response.put("message", "나눔 완료 되었습니다.");
