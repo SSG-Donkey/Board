@@ -75,7 +75,7 @@ public class PostService {
     }
     //게시글 검증  (작성자가 해당게시글 맞는지)
     public int validatePost(Integer post_no,Integer user_no) throws Exception {
-        System.out.println("삭제디버그 시작");
+        System.out.println("유효디버그 시작");
 
         int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
 
@@ -90,6 +90,13 @@ public class PostService {
             return 0;
         }
 
+
+    }
+    public int validatePost2(Integer post_no,Integer user_no) throws Exception {
+        System.out.println("유효디버그 시작");
+
+        int res1 = postMapper.validatePost(post_no,user_no); //작성자 , 게시글 유효성 검증
+        return res1;
 
     }
     //게시글 수정

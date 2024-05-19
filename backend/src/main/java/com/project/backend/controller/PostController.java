@@ -215,7 +215,7 @@ public class PostController {
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("update옴 \n");
         Map<String, String> response = new HashMap<>();
-        int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
+        int validate =postService.validatePost2(post_no,user_no); //작성자 게시글 유효성 검증
 
         if(validate >=1){
             response.put("message", "게시글 수정 페이지로 넘어갑니다.");
@@ -232,7 +232,7 @@ public class PostController {
 
     }
     @PostMapping("/edit")
-    public Map<String, String> editPost(    @RequestParam("post_no") String postNo,
+    public Map<String, String> editPost(  @RequestParam("post_no") String postNo,
                                @RequestParam("post_title") String post_title,
                                @RequestParam("post_content") String post_content,
                                @RequestParam("user_no") String userNo,
