@@ -1,12 +1,10 @@
 package com.project.backend.service;
 
-import com.project.backend.dto.PointDto;
-
-import com.project.backend.mappers.PointMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.project.backend.dto.PointDto;
+import com.project.backend.mappers.PointMapper;
 @Service
 public class PointService {
 
@@ -14,6 +12,16 @@ public class PointService {
     PointMapper pointMapper;
 
     public PointDto getUserPoint(String userNo) {
-        return pointMapper.showPoint(userNo);
+        PointDto res = pointMapper.showPoint(userNo);
+        
+        if (res != null) {
+            if (res.getAmount() == null) {
+                res.setAmount(0);
+            }
+        } else {
+            res = new PointDto();
+            res.setAmount(0);
+        }
+        return res;
     }
 }

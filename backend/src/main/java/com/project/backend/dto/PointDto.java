@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class PointDto {
 
-    private Integer point;
+    private Integer amount;
     private Integer userNo;
 }

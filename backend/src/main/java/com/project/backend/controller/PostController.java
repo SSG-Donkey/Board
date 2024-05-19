@@ -273,9 +273,10 @@ public class PostController {
 
     //포인트 불러오기
     @GetMapping("/point")
-    public PointDto showUserPoint(@RequestParam("userNo") String userNo) {
-        log.info("point 진입 userNo" + userNo);
-        return pointService.getUserPoint(userNo);
+    public ResponseEntity<PointDto> showUserPoint(@RequestParam("userNo") String userNo) {
+        PointDto res = pointService.getUserPoint(userNo);
+        
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 }
