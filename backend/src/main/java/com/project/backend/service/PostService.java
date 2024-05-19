@@ -93,17 +93,10 @@ public class PostService {
 
     }
     //게시글 수정
-    public int updatePost(Integer post_no,String post_title,String post_content,MultipartFile post_file,Integer post_category,Integer region_no,Integer post_status,Integer point) throws Exception {
-        System.out.println("디버그 시작");
-        System.out.println(post_category);
-        String post_file1;
-        post_file1 = s3ImageService.upload(post_file);
-//        if (post_file1 == null) {
-//            post_file1 = "https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png";
-//        }
-        System.out.println("image 경로: " + post_file1);
+    public int editPost(Integer post_no,String post_title,String post_content,Integer user_no,Integer post_category,Integer region_no,Integer point) throws Exception {
+        System.out.println("edit디버그 시작");
 
-        int res = postMapper.updatePost(post_no,post_title,post_content,post_file1,post_category,region_no,post_status,point);
+        int res = postMapper.editPost(post_no,post_title,post_content,user_no,post_category,region_no,point);
         // addBasicImage(res);
 
         return res;

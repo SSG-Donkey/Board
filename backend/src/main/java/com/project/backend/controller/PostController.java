@@ -206,9 +206,9 @@ public class PostController {
 
     }
 
-    //게시글 수정
+    //게시글 수정 유효성검증
     @PostMapping("/update")
-    public Map<String, String> updatePost(   @RequestParam("postNo") String postNo,
+    public Map<String, String> updatePost( @RequestParam("postNo") String postNo,
                                 @RequestParam("userNo") String userNo) throws Exception {
         int post_no=Integer.parseInt(postNo);
         int user_no=Integer.parseInt(userNo);
@@ -218,9 +218,8 @@ public class PostController {
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
 
         if(validate ==1){
-            response.put("post_no", postNo);
             response.put("message", "게시글 수정 페이지로 넘어갑니다.");
-            response.put("redirectUrl", "/write2.html");
+            response.put("redirectUrl", "/editpost.html");
             return response;
         }
         else{
@@ -232,6 +231,44 @@ public class PostController {
         //DB에 값 저장안된경우
 
     }
+    @PostMapping("/edit")
+    public String editPost(    @RequestParam("post_no") String postNo,
+                               @RequestParam("post_title") String post_title,
+                               @RequestParam("post_content") String post_content,
+                               @RequestParam("user_no") String userNo,
+                               @RequestParam("post_category") Integer post_category,
+                               @RequestParam("region_no") Integer region_no,
+                               @RequestParam("point") Integer point) throws Exception {
+
+        //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
+        System.out.print("edit \n");
+        int post_no=Integer.parseInt(postNo);
+        int user_no=Integer.parseInt(userNo);
+
+        int posts = postService.editPost(post_no,post_title,post_content,user_no,post_category,region_no,point);
+        System.out.println("글 수정완료");
+
+        //DB에 값 저장된경우
+        if (posts == 1) {
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"게시글 수정 되었습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+        }
+        else{
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"실패하였습니다. \");" +
+                    "location.href = \"/board.html\";" +
+                    "</script>";
+            return html;
+
+        }
+        //DB에 값 저장안된경우
+
+    }
+
+
     //게시글 작성 끝// 게시글 상세페이지 시작
     @GetMapping("/post/{postNo}")
     @ResponseBody

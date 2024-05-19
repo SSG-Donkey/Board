@@ -22,10 +22,10 @@
         WHERE post_no=#{post_no} AND user_no=#{user_no}
     </select>
 
-    <update id="updatePost" parameterType="map">
+    <update id="editPost" parameterType="map">
         UPDATE post
-        SET
-        WHERE post_no= #{post}
+        SET post_title=#{post_title},post_content=#{post_content},post_category=#{post_category},region_no=#{region_no},point=#{point}
+        WHERE post_no= #{post_no}
     </update>
 
     <select id="findAllPosts" parameterType="map" resultType="com.project.backend.dto.PostDto">
