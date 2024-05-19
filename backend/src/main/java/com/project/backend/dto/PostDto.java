@@ -21,5 +21,6 @@ public class PostDto {
     private String regionName;
     private String postDate;
     private String postStatus;
+    private Integer point;
 
 }

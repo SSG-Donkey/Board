@@ -218,14 +218,14 @@ public class PostController {
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
 
         if(validate ==1){
-            response.put("post_no", post_no);
+            response.put("post_no", postNo);
             response.put("message", "게시글 수정 페이지로 넘어갑니다.");
             response.put("redirectUrl", "/write2.html");
             return response;
         }
         else{
             response.put("message", "게시글 수정 권한이 없습니다.");
-            response.put("redirectUrl", "/boardDetail.html?postNo=" + post_no);
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
             return response;
         }
 
