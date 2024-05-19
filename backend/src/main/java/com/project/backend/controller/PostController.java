@@ -232,7 +232,7 @@ public class PostController {
 
     }
     @PostMapping("/edit")
-    public String editPost(    @RequestParam("post_no") String postNo,
+    public Map<String, String> editPost(    @RequestParam("post_no") String postNo,
                                @RequestParam("post_title") String post_title,
                                @RequestParam("post_content") String post_content,
                                @RequestParam("user_no") String userNo,
@@ -247,23 +247,20 @@ public class PostController {
 
         int posts = postService.editPost(post_no,post_title,post_content,user_no,post_category,region_no,point);
         System.out.println("글 수정완료");
+        Map<String, String> response = new HashMap<>();
 
-        //DB에 값 저장된경우
-        if (posts == 1) {
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 수정 되었습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
+        if(posts ==1){
+            response.put("message", "게시글 수정 완료하였습니다.");
+            response.put("redirectUrl",  "/boardDetail.html?postNo=" + postNo);
+            return response;
         }
         else{
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"실패하였습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-
+            response.put("message", "게시글 수정 실패하였습니다.");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            return response;
         }
+        //DB에 값 저장된경우
+
         //DB에 값 저장안된경우
 
     }
