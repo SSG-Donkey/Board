@@ -208,40 +208,20 @@ public class PostController {
 
     //게시글 수정
     @PostMapping("/update")
-    public String updatePost(   @RequestParam("post_no") Integer post_no,
-                               @RequestParam("post_title") String post_title,
-                               @RequestParam("post_content") String post_content,
-                               @RequestParam("post_file") MultipartFile post_file,
-                               @RequestParam("user_no") Integer user_no,
-                                @RequestParam("post_status") Integer post_status,
-                               @RequestParam("post_category") Integer post_category,
-                               @RequestParam("region_no") Integer region_no,
-                               @RequestParam("point") Integer point) throws Exception {
-
+    public String updatePost(   @RequestParam("postNo") String postNo,
+                                @RequestParam("userNo") String userNo) throws Exception {
+        int post_no=Integer.parseInt(postNo);
+        int user_no=Integer.parseInt(userNo);
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("update옴 \n");
-        int validate =postService.validatePost(post_no,user_no);
+        int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
+
         if(validate ==1){
-            int posts = postService.updatePost(post_no,post_title, post_content, post_file, post_category, region_no, post_status, point);
-            System.out.println("글 수정완료");
-
-            //DB에 값 저장된경우
-            if (posts == 1) {
-                String html = "<script type=\"text/javascript\">" +
-                        "alert(\"게시글 수정 완료되었습니다. \");" +
-                        "location.href = \"/board.html\";" +
-                        "</script>";
-                return html;
-            }
-            else{
-                String html = "<script type=\"text/javascript\">" +
-                        "alert(\"로그인 해주시기 바랍니다. \");" +
-                        "location.href = \"/board.html\";" +
-                        "</script>";
-                return html;
-
-            }
-
+            String html = "<script type=\"text/javascript\">" +
+                    "alert(\"수정페이지로 넘어갑니다. \");" +
+                    "location.href = \"/editPost.html\";" +
+                    "</script>";
+            return html;
 
         }
         else{
