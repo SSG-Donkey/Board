@@ -245,24 +245,17 @@ public class PostController {
         int post_no=Integer.parseInt(postNo);
         int user_no=Integer.parseInt(userNo);
 
-        int posts = postService.editPost(post_no,post_title,post_content,user_no,post_category,region_no,point);
+        int posts = postService.editPost(post_no,post_title,post_content,post_category,region_no,point);
         System.out.println("글 수정완료");
-        Map<String, String> response = new HashMap<>();
 
-        if(posts ==1){
-            String html = "<script type=\"text/javascript\">" +
+
+
+        String html = "<script type=\"text/javascript\">" +
                     "alert(\"게시글 수정 되었습니다. \");" +
                     "location.href = \"/board.html\";" +
                     "</script>";
-            return html;
-        }
-        else{
-            String html = "<script type=\"text/javascript\">" +
-                    "alert(\"게시글 수정 실패 하였습니다. \");" +
-                    "location.href = \"/board.html\";" +
-                    "</script>";
-            return html;
-        }
+        return html;
+
         //DB에 값 저장된경우
 
         //DB에 값 저장안된경우
