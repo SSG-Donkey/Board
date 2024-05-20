@@ -85,11 +85,10 @@ public class PostService {
     }
 
     //게시글 수정
-    public int editPost(Integer post_no, String post_title, String post_content, Integer post_category, Integer region_no, Integer point) throws Exception {
+    public int editPost(Integer post_no, String post_title, String post_content, Integer post_category, Integer region_no, Integer point, String postFile) throws Exception {
         System.out.println("edit디버그 시작");
 
-        int res = postMapper.editPost(post_no, post_title, post_content, post_category, region_no, point);
-        // addBasicImage(res);
+        int res = postMapper.editPost(post_no, post_title, post_content, post_category, region_no, point, postFile);
 
         return res;
     }

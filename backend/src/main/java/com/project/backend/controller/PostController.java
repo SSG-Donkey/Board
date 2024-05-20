@@ -217,8 +217,9 @@ public class PostController {
         Map<String, String> response = new HashMap<>();
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
         String redirectUrl="https://www.dangnagwi.store/editpost.html?postNo="+postNo;
+
         if(validate >=1){
-            response.put("message", "게시글 수정 페이지로 넘어갑니다.");
+            // response.put("message", "게시글 수정 페이지로 넘어갑니다.");
             response.put("redirectUrl", redirectUrl);
             return response;
         }
@@ -263,16 +264,16 @@ public class PostController {
                                @RequestParam("post_content") String post_content,
                                @RequestParam("post_category") Integer post_category,
                                @RequestParam("region_no") Integer region_no,
-                               @RequestParam("point") Integer point) throws Exception {
+                               @RequestParam("point") Integer point,
+                               @RequestParam("post_file") String postFile) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("edit \n");
         int post_no=Integer.parseInt(postNo);
 
 
-        int posts = postService.editPost(post_no,post_title,post_content,post_category,region_no,point);
+        int posts = postService.editPost(post_no,post_title,post_content,post_category,region_no,point,postFile);
         System.out.println("글 수정완료");
-
 
 
         String html = "<script type=\"text/javascript\">" +

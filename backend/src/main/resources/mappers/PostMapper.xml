@@ -24,7 +24,7 @@
 
     <update id="editPost" parameterType="map">
         UPDATE post
-        SET post_title=#{post_title},post_content=#{post_content},post_category=#{post_category},region_no=#{region_no},point=#{point}
+        SET post_title=#{post_title},post_content=#{post_content},post_category=#{post_category},region_no=#{region_no},point=#{point}, post_File=#{postFile}
         WHERE post_no= #{post_no}
     </update>
     <update id="finishPost" parameterType="map">
@@ -48,7 +48,10 @@
     <select id="getRecentPost"  resultType="com.project.backend.dto.PostDto">
         SELECT *
         FROM (
-                 SELECT post.*, region.region_name as region_name,
+                 SELECT post.*, region.region_name as region_name, (select category_name
+																	from category
+                                                                    where category_no = post.post_category)
+                                                                    category_name,
                         ROW_NUMBER() OVER (PARTITION BY post_category ORDER BY post_date DESC) as rn
                  FROM post
                           JOIN region ON post.region_no = region.region_no
