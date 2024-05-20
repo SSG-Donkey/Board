@@ -265,7 +265,7 @@ public class PostController {
                                @RequestParam("post_category") Integer post_category,
                                @RequestParam("region_no") Integer region_no,
                                @RequestParam("point") Integer point,
-                               @RequestParam("post_file") String postFile) throws Exception {
+                               @RequestParam("post_file") MultipartFile postFile) throws Exception {
 
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
         System.out.print("edit \n");
