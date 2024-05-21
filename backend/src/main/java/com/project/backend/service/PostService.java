@@ -86,18 +86,20 @@ public class PostService {
 
     //게시글 수정
     public int editPost(Integer post_no, String post_title, String post_content, Integer post_category, Integer region_no, Integer point, MultipartFile postFile) throws Exception {
-        System.out.println("edit디버그 시작");
+        log.info("----게시글수정 디버깅 시작----");
 
-        String post_file1;
-        post_file1 = s3ImageService.upload(postFile);
+        String new_post_file = null;
 
-        int res = postMapper.editPost(post_no, post_title, post_content, post_category, region_no, point, post_file1);
+        if(null != postFile)
+            new_post_file = s3ImageService.upload(postFile);
+
+        int res = postMapper.editPost(post_no, post_title, post_content, post_category, region_no, point, new_post_file);
 
         return res;
     }
     // 게시글 나눔완료
     public int finishPost(Integer post_no) throws Exception {
-        System.out.println("edit디버그 시작");
+        log.info("edit디버그 시작");
 
         int res = postMapper.finishPost(post_no);
         // addBasicImage(res);
