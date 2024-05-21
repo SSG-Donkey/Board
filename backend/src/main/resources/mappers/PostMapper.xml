@@ -25,7 +25,7 @@
     <update id="editPost" parameterType="map">
         UPDATE post
         SET post_title=#{post_title},post_content=#{post_content},post_category=#{post_category},region_no=#{region_no},point=#{point}
-        <if test="postFile != null">post_File = #{postFile}</if>
+        <if test="postFile != null">,post_File = #{postFile}</if>
         WHERE post_no= #{post_no}
     </update>
     <update id="finishPost" parameterType="map">
