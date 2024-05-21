@@ -19,6 +19,8 @@ import java.util.Map;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/selectCommentByPostNo")
     public ResponseEntity<List<CommentDto>> selectCommentByPostNo(@RequestParam String postNo){
@@ -54,6 +56,7 @@ public class CommentController {
                                             @RequestParam("commentNo")String commentNo){
 
         System.out.printf("comment_no = %s , post_no =%s user_no =%s\n",commentNo,postNo,userNo);
+
         int comment_no=Integer.parseInt(commentNo);
         CommentDto commentDto = new CommentDto();
         commentDto.setPostNo(postNo);
@@ -75,6 +78,44 @@ public class CommentController {
 
         }
 
+        return response;
+    }
+
+    //나눔 채택
+    @PostMapping("select")
+    public Map<String,String> selectUser(@RequestParam("postNo")String postNo,
+                                         @RequestParam("point")String point,
+                                         @RequestParam("userNo")String userNo,
+                                         @RequestParam("commentNo")String commentNo){
+        System.out.printf("point :%s , userno: %s ,commentno:%s\n",point,userNo,commentNo);
+        Map<String,String> response =new HashMap<>();
+        int post_status=commentService.postChosen(postNo); // 채택여부 알기
+        if(post_status ==0){ //채택 안되어있으면
+
+            int res1=commentService.cutPoint(userNo,point);
+            System.out.printf("res1=%d\n",res1); //컷됨
+            if(res1==1){
+
+                int res2=commentService.chooseComment(commentNo);
+                System.out.printf("res2=%d\n",res2);
+                if(res2==1){
+                    int post_no=Integer.parseInt(postNo);
+                    int result=postService.finishPost(post_no);
+                    response.put("message", "채택 완료하였습니다.");
+                    response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+
+                }
+                else{
+                    response.put("message", "채택 실패하였습니다.");
+                    response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+                }
+                return response;
+            }
+
+        }
+
+        response.put("message", "채택 실패하였습니다.");
+        response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
         return response;
     }
 }

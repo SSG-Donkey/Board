@@ -34,10 +34,27 @@ public class CommentService {
         int res = commentMapper.validateComment(commentDto);
         return res;
     }
+    public int postChosen(String postNo){
+        int res=commentMapper.postChosen(postNo);
+        return res;
+    }
 
     public int deleteComment(CommentDto commentDto){
         int res = commentMapper.deleteComment(commentDto);
 
         return res;
+    }
+    public int cutPoint(String user_no,String point){
+        int res= commentMapper.cutPoint(user_no,point);
+        return res;
+    }
+    public int chooseComment(String comment_no){
+        int res1=commentMapper.nochooseComment(comment_no); //채택되지않은 댓글이면
+        if(res1==0){
+            int res2=commentMapper.chooseComment(comment_no);
+            return res2;
+        }
+
+        return 1;
     }
 }

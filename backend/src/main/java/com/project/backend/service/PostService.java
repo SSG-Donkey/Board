@@ -98,8 +98,8 @@ public class PostService {
         return res;
     }
     // 게시글 나눔완료
-    public int finishPost(Integer post_no) throws Exception {
-        log.info("edit디버그 시작");
+    public int finishPost(int post_no)  {
+        log.info("finish디버그 시작");
 
         int res = postMapper.finishPost(post_no);
         // addBasicImage(res);

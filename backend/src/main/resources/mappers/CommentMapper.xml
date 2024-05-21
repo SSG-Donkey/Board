@@ -19,6 +19,10 @@
         SELECT comment_no FROM comment
         WHERE comment_no=#{commentNo} AND user_no=#{userNo} AND post_no=#{postNo}
     </select>
+    <select id="postChosen" parameterType="map" resultType="int" >
+        SELECT post_status FROM post
+        WHERE post_no=#{postNo}
+    </select>
 
     <update id="updateComment" parameterType="com.project.backend.dto.CommentDto">
         UPDATE comment
@@ -31,4 +35,17 @@
         WHERE comment_no= #{commentNo}
     </delete>
 
+    <update id="cutPoint" parameterType="map">
+        UPDATE user SET amount = amount-#{point}
+        WHERE user_no = #{user_no}
+    </update>
+
+    <select id="nochooseComment" parameterType="map" resultType="int">
+        SELECT is_chosen from comment
+        WHERE comment_no=#{comment_no}
+    </select>
+    <update id="chooseComment" parameterType="map">
+        UPDATE comment SET is_chosen = 1
+        WHERE comment_no = #{comment_no}
+    </update>
 </mapper>
