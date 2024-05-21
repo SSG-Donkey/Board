@@ -30,6 +30,10 @@ public class CommentService {
 
         return res;
     }
+    public int validateComment(CommentDto commentDto){
+        int res = commentMapper.validateComment(commentDto);
+        return res;
+    }
 
     public int deleteComment(CommentDto commentDto){
         int res = commentMapper.deleteComment(commentDto);

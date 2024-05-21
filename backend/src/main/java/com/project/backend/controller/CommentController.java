@@ -2,6 +2,7 @@ package com.project.backend.controller;
 
 import com.project.backend.dto.CommentDto;
 import com.project.backend.service.CommentService;
+import com.project.backend.service.PostService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,24 @@ public class CommentController {
 
     //댓글 삭제하기
     @PostMapping("/deleteComment")
-    public int deleteComment(@RequestBody CommentDto commentDto){
-        return commentService.deleteComment(commentDto);
+    public Map<String,String> deleteComment(@RequestBody CommentDto commentDto){
+        System.out.printf("comment_no = %s",commentDto.getCommentNo());
+        int res1=Integer.parseInt(commentDto.getCommentNo());
+        int res2 =commentService.validateComment(commentDto);
+        String postNo=commentDto.getPostNo();
+        Map<String,String> response =new HashMap<>();
+        System.out.printf(" res1=%d ,res2=%d\n",res1,res2);
+        if(res1 == res2){
+            response.put("message", "댓글 삭제 완료하였습니다.");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+
+        }
+        else{
+            response.put("message", "댓글 삭제 실패하였습니다.");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+
+        }
+
+        return response;
     }
 }

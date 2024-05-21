@@ -15,6 +15,11 @@
         VALUES (#{userNo}, #{postNo}, #{commentContent}, #{commentDate}, #{isChosen})
     </insert>
 
+    <select id="validateComment" parameterType="com.project.backend.dto.CommentDto" resultType="int" >
+        SELECT comment_no FROM comment
+        WHERE comment_no=#{comment_no} AND user_no=#{user_no}
+    </select>
+
     <update id="updateComment" parameterType="com.project.backend.dto.CommentDto">
         UPDATE comment
         SET comment_content = #{commentContent}, comment_date = now()

@@ -12,4 +12,5 @@ public interface CommentMapper {
     int insertComment(CommentDto commentDto);
     int updateComment(CommentDto commentDto);
     int deleteComment(CommentDto commentDto);
+    int  validateComment(CommentDto commentDto);
 }
