@@ -17,7 +17,7 @@
 
     <select id="validateComment" parameterType="com.project.backend.dto.CommentDto" resultType="int" >
         SELECT comment_no FROM comment
-        WHERE comment_no=#{comment_no} AND user_no=#{user_no}
+        WHERE comment_no=#{comment_no} AND user_no=#{user_no} AND post_no=#{post_no}
     </select>
 
     <update id="updateComment" parameterType="com.project.backend.dto.CommentDto">

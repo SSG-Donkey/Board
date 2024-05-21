@@ -19,6 +19,7 @@ import java.util.Map;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+    private CommentDto commentDto;
 
     @GetMapping("/selectCommentByPostNo")
     public ResponseEntity<List<CommentDto>> selectCommentByPostNo(@RequestParam String postNo){
@@ -49,20 +50,27 @@ public class CommentController {
 
     //댓글 삭제하기
     @PostMapping("/deleteComment")
-    public Map<String,String> deleteComment(@RequestBody CommentDto commentDto){
-        System.out.printf("comment_no = %s",commentDto.getCommentNo());
-        int res1=Integer.parseInt(commentDto.getCommentNo());
+    public Map<String,String> deleteComment(@RequestParam("postNo")String postNo,
+                                            @RequestParam("userNo")String userNo,
+                                            @RequestParam("commentNo")String commentNo){
+
+        System.out.printf("comment_no = %s , post_no =%s user_no =%s",commentNo,postNo,userNo);
+        int comment_no=Integer.parseInt(commentNo);
+
+        commentDto.setPostNo(postNo);
+        commentDto.setUserNo(userNo);
+        commentDto.setCommentNo(commentNo);
         int res2 =commentService.validateComment(commentDto);
-        String postNo=commentDto.getPostNo();
+
         Map<String,String> response =new HashMap<>();
-        System.out.printf(" res1=%d ,res2=%d\n",res1,res2);
-        if(res1 == res2){
+        System.out.printf(" res1=%d ,res2=%d\n",commentNo,res2);
+        if(comment_no== res2){
             response.put("message", "댓글 삭제 완료하였습니다.");
             response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
         }
         else{
-            response.put("message", "댓글 삭제 실패하였습니다.");
+            response.put("message", "댓글 삭제 실패하였습니다!");
             response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
         }
