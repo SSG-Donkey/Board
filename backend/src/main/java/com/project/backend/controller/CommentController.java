@@ -19,7 +19,6 @@ import java.util.Map;
 public class CommentController {
     @Autowired
     private CommentService commentService;
-    private CommentDto commentDto;
 
     @GetMapping("/selectCommentByPostNo")
     public ResponseEntity<List<CommentDto>> selectCommentByPostNo(@RequestParam String postNo){
@@ -56,7 +55,7 @@ public class CommentController {
 
         System.out.printf("comment_no = %s , post_no =%s user_no =%s",commentNo,postNo,userNo);
         int comment_no=Integer.parseInt(commentNo);
-
+        CommentDto commentDto = new CommentDto();
         commentDto.setPostNo(postNo);
         commentDto.setUserNo(userNo);
         commentDto.setCommentNo(commentNo);
