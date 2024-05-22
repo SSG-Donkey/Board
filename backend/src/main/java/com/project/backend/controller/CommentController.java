@@ -120,6 +120,10 @@ public class CommentController {
                 }
                 return response;
             }
+            else{
+                response.put("message", "유저의 포인트가 부족합니다.");
+                response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            }
 
         }
 
