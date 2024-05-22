@@ -33,6 +33,10 @@ public interface PostMapper {
     int editPost(Integer post_no,String post_title, String post_content, Integer post_category, Integer region_no,  Integer point, String postFile);
     int sharePost(Integer post_no);
     int finishPost(Integer post_no);
+    int findShareUser(Integer post_no);
+    int findPoint(Integer post_no);
+
+    int givePoint(Integer find_no,Integer find_point);
     int isWriter(String user_no,String post_no);
 }
 

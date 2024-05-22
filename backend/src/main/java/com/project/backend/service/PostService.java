@@ -107,10 +107,12 @@ public class PostService {
 
         return res;
     }
-    //게시글 나눔중으로 변경
+    //게시글 나눔중으로 되돌리기 변경
     public int sharePost(int post_no)  {
         log.info("share디버그 시작");
-
+        int find_no = postMapper.findShareUser(post_no);  //채택유저 찾기
+        int find_point=postMapper.findPoint(post_no);
+        int give_point=postMapper.givePoint(find_no,find_point);
         int res = postMapper.sharePost(post_no);
         // addBasicImage(res);
 
