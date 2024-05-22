@@ -245,6 +245,7 @@ public class PostController {
         Map<String, String> response = new HashMap<>();
 
         int share =postService.sharePost(post_no); //유효성끝나면 업데이트
+        System.out.printf("share값은 ?: %d \n",share);
         String redirectUrl="https://www.dangnagwi.store/boardDetail.html?postNo="+postNo;
         if(share >=1){
             response.put("message", "나눔중 상태로 변경 완료 되었습니다.");
