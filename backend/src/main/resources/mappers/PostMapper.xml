@@ -50,7 +50,7 @@
     </select>
     <update id="givePoint" parameterType="map">
         UPDATE user
-        SET amount=#{find_point}
+        SET amount=amount+#{find_point}
         WHERE user_no= #{find_no}
     </update>
 

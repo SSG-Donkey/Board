@@ -111,8 +111,8 @@ public class PostService {
     public int sharePost(int post_no)  {
         log.info("share디버그 시작");
         int find_no = postMapper.findShareUser(post_no);  //채택유저 찾기
-        int find_point=postMapper.findPoint(post_no);
-        int give_point=postMapper.givePoint(find_no,find_point);
+        int find_point=postMapper.findPoint(post_no);     //포인트 찾기
+        int give_point=postMapper.givePoint(find_no,find_point); //채택유저 포인트 업데이트
         int res = postMapper.sharePost(post_no);
         // addBasicImage(res);
 
