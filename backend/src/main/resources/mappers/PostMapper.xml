@@ -46,7 +46,7 @@
     </select>
 
     <select id="findPoint"  parameterType="map" resultType="int">
-        SELECT point FROM point  WHERE post_no=#{post_no}
+        SELECT point FROM post  WHERE post_no=#{post_no}
     </select>
     <update id="givePoint" parameterType="map">
         UPDATE user

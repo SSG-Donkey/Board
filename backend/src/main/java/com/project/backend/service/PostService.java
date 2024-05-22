@@ -114,7 +114,7 @@ public class PostService {
         System.out.printf("user_no =%d \n",find_no);
 
         int find_point=postMapper.findPoint(post_no);     //포인트 찾기
-        System.out.printf("point =%d\n ",post_no);
+        System.out.printf("point =%d\n ",find_point);
         int give_point=postMapper.givePoint(find_no,find_point); //채택유저 포인트 업데
         int res = postMapper.sharePost(post_no);
         // addBasicImage(res);
