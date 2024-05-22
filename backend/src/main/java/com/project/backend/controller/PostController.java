@@ -233,6 +233,8 @@ public class PostController {
 
     }
 
+
+    //나눔중 상태로 되돌리기
     @PostMapping("/share")
     public Map<String, String> sharePost( @RequestParam("postNo") String postNo,
                                            @RequestParam("userNo") String userNo) throws Exception {

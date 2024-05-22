@@ -109,7 +109,7 @@ public class PostService {
     }
     //게시글 나눔중으로 변경
     public int sharePost(int post_no)  {
-        log.info("finish디버그 시작");
+        log.info("share디버그 시작");
 
         int res = postMapper.sharePost(post_no);
         // addBasicImage(res);
