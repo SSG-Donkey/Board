@@ -28,9 +28,9 @@
         <if test="postFile != null">,post_File = #{postFile}</if>
         WHERE post_no= #{post_no}
     </update>
-    <update id="finishPost" parameterType="map">
+    <update id="sharePost" parameterType="map">
         UPDATE post
-        SET post_status=1
+        SET post_status=0
         WHERE post_no= #{post_no}
     </update>
 
@@ -67,7 +67,9 @@
     <select id="findPostByNo" parameterType="string" resultType="com.project.backend.dto.PostDto">
         SELECT * FROM post WHERE post_no = #{getPostNo}
     </select>
-
+    <select id="isWriter" parameterType="string" resultType="int">
+        SELECT user_no FROM post WHERE user_no=#{user_no} AND post_no=#{post_no}
+    </select>
 
     <!-- 페이지네이션    -->
     <resultMap id="postResultMap" type="com.project.backend.dto.PostDto">

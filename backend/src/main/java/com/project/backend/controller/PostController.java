@@ -233,24 +233,24 @@ public class PostController {
 
     }
 
-    @PostMapping("/finish")
-    public Map<String, String> finishPost( @RequestParam("postNo") String postNo,
+    @PostMapping("/share")
+    public Map<String, String> sharePost( @RequestParam("postNo") String postNo,
                                            @RequestParam("userNo") String userNo) throws Exception {
         int post_no=Integer.parseInt(postNo);
         int user_no=Integer.parseInt(userNo);
         //현재 예외처리없게 하드코딩 함 write 부분 user_no =1로 고정해놨음
-        System.out.print("finish옴 \n");
+        System.out.print("share옴 \n");
         Map<String, String> response = new HashMap<>();
         int validate =postService.validatePost(post_no,user_no); //작성자 게시글 유효성 검증
-        int finish =postService.finishPost(post_no); //유효성끝나면 업데이트
+        int share =postService.sharePost(post_no); //유효성끝나면 업데이트
         String redirectUrl="https://www.dangnagwi.store/boardDetail.html?postNo="+postNo;
         if(validate >=1){
-            response.put("message", "나눔 완료 되었습니다.");
+            response.put("message", "나눔중 상태로 변경 완료 되었습니다.");
             response.put("redirectUrl", redirectUrl);
             return response;
         }
         else{
-            response.put("message", "나눔 완료 실패하였습니다.");
+            response.put("message", "나눔중 상태로 변경  실패하였습니다.");
             response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
             return response;
         }

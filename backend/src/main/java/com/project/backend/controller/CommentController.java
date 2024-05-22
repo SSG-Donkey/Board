@@ -83,12 +83,21 @@ public class CommentController {
 
     //나눔 채택
     @PostMapping("select")
-    public Map<String,String> selectUser(@RequestParam("postNo")String postNo,
+    public Map<String,String> selectUser(@RequestParam("postuserNo") String post_userno,
+                                         @RequestParam("postNo")String postNo,
                                          @RequestParam("point")String point,
                                          @RequestParam("userNo")String userNo,
                                          @RequestParam("commentNo")String commentNo){
         System.out.printf("point :%s , userno: %s ,commentno:%s\n",point,userNo,commentNo);
         Map<String,String> response =new HashMap<>();
+        int is_writer=postService.isWriter(post_userno,postNo);
+        int user_no=Integer.parseInt(post_userno);
+        System.out.printf("post_userno : %d\n",user_no);
+        if(is_writer !=user_no){
+            response.put("message", "채택권한이 없습니다.");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            return response;
+        }
         int post_status=commentService.postChosen(postNo); // 채택여부 알기
         if(post_status ==0){ //채택 안되어있으면
 
@@ -100,13 +109,13 @@ public class CommentController {
                 System.out.printf("res2=%d\n",res2);
                 if(res2==1){
                     int post_no=Integer.parseInt(postNo);
-                    int result=postService.finishPost(post_no);
-                    response.put("message", "채택 완료하였습니다.");
+                    int result=postService.sharePost(post_no);
+                    response.put("message", "나눔중 상태로 변경 완료하였습니다.");
                     response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
                 }
                 else{
-                    response.put("message", "채택 실패하였습니다.");
+                    response.put("message", "나눔중 상태로 변경 실패하였습니다.");
                     response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
                 }
                 return response;

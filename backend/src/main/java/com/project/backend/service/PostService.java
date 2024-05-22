@@ -98,10 +98,10 @@ public class PostService {
         return res;
     }
     // 게시글 나눔완료
-    public int finishPost(int post_no)  {
+    public int sharePost(int post_no)  {
         log.info("finish디버그 시작");
 
-        int res = postMapper.finishPost(post_no);
+        int res = postMapper.sharePost(post_no);
         // addBasicImage(res);
 
         return res;
@@ -171,6 +171,13 @@ public class PostService {
         int totalPages = (int) Math.ceil((double) totalCount / size);
 
         return new PageResultDto<>(posts, page, size, totalPages, totalCount);
+    }
+
+    //
+    public int isWriter(String user_no,String post_no){
+
+        int res = postMapper.isWriter(user_no,post_no);
+        return res;
     }
 
     //이미지가 없으면 게시글의 기본 이미지를 당나귀 로고로 수정
