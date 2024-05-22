@@ -32,6 +32,7 @@ public interface PostMapper {
     int deletePost(Integer post_no,Integer user_no);
     int editPost(Integer post_no,String post_title, String post_content, Integer post_category, Integer region_no,  Integer point, String postFile);
     int sharePost(Integer post_no);
+    int finishPost(Integer post_no);
     int isWriter(String user_no,String post_no);
 }
 

@@ -28,6 +28,13 @@
         <if test="postFile != null">,post_File = #{postFile}</if>
         WHERE post_no= #{post_no}
     </update>
+
+    <update id="finishPost" parameterType="map">
+        UPDATE post
+        SET post_status=1
+        WHERE post_no= #{post_no}
+    </update>
+
     <update id="sharePost" parameterType="map">
         UPDATE post
         SET post_status=0

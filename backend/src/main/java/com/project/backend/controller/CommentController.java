@@ -109,13 +109,13 @@ public class CommentController {
                 System.out.printf("res2=%d\n",res2);
                 if(res2==1){
                     int post_no=Integer.parseInt(postNo);
-                    int result=postService.sharePost(post_no);
-                    response.put("message", "나눔중 상태로 변경 완료하였습니다.");
+                    int result=postService.finishPost(post_no);
+                    response.put("message", "채택 완료하였습니다.");
                     response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
                 }
                 else{
-                    response.put("message", "나눔중 상태로 변경 실패하였습니다.");
+                    response.put("message", "채택 실패하였습니다.");
                     response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
                 }
                 return response;

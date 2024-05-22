@@ -98,6 +98,16 @@ public class PostService {
         return res;
     }
     // 게시글 나눔완료
+
+    public int finishPost(int post_no)  {
+        log.info("finish디버그 시작");
+
+        int res = postMapper.finishPost(post_no);
+        // addBasicImage(res);
+
+        return res;
+    }
+    //게시글 나눔중으로 변경
     public int sharePost(int post_no)  {
         log.info("finish디버그 시작");
 
