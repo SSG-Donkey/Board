@@ -112,7 +112,7 @@ public class PostService {
         log.info("share디버그 시작");
         int find_no = postMapper.findShareUser(post_no);  //채택유저 찾기
         System.out.printf("user_no =%d \n",find_no);
-
+        int updatechosen= postMapper.updateChosen(post_no,find_no);
         int find_point=postMapper.findPoint(post_no);     //포인트 찾기
         System.out.printf("point =%d\n ",find_point);
         int give_point=postMapper.givePoint(find_no,find_point); //채택유저 포인트 업데

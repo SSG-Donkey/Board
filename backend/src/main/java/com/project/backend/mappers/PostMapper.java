@@ -35,7 +35,7 @@ public interface PostMapper {
     int finishPost(Integer post_no);
     int findShareUser(Integer post_no);
     int findPoint(Integer post_no);
-
+    int updateChosen(Integer post_no, Integer user_no);
     int givePoint(Integer find_no,Integer find_point);
     int isWriter(String user_no,String post_no);
 }

@@ -41,6 +41,11 @@
         WHERE post_no= #{post_no}
     </update>
 
+    <update id="updateChosen" parameterType="map">
+        UPDATE comment
+        SET is_chosen=0
+        WHERE post_no= #{post_no} AND user_no=#{user_no}
+    </update>
     <select id="findShareUser"  parameterType="map" resultType="int">
         SELECT user_no FROM comment WHERE post_no=#{post_no} AND is_chosen=1
     </select>
