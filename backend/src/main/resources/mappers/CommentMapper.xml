@@ -39,6 +39,10 @@
         UPDATE user SET amount = amount-#{point}
         WHERE user_no = #{user_no}
     </update>
+    <update id="givePoint" parameterType="map">
+        UPDATE user SET amount = amount+#{point}
+        WHERE user_no = #{user_no}
+    </update>
 
     <select id="nochooseComment" parameterType="map" resultType="int">
         SELECT is_chosen from comment

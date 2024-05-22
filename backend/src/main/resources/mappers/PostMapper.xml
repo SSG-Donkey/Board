@@ -58,6 +58,11 @@
         SET amount=amount+#{find_point}
         WHERE user_no= #{find_no}
     </update>
+    <update id="cutPoint" parameterType="map">
+        UPDATE user
+        SET amount=amount-#{find_point}
+        WHERE user_no= #{find_no}
+    </update>
 
     <select id="findAllPosts" parameterType="map" resultType="com.project.backend.dto.PostDto">
         SELECT post.*, region.region_name as region_name

@@ -2,6 +2,7 @@ package com.project.backend.service;
 
 import com.project.backend.dto.CommentDto;
 import com.project.backend.mappers.CommentMapper;
+import com.project.backend.mappers.PostMapper;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,8 @@ import java.util.List;
 public class CommentService {
     @Autowired
     CommentMapper commentMapper;
-
+    @Autowired
+    PostMapper postMapper;
     public List<CommentDto> selectCommentByPostNo(String postNo){
         List<CommentDto> res = commentMapper.selectCommentByPostNo(postNo);
         return res;
@@ -46,6 +48,12 @@ public class CommentService {
     }
     public int cutPoint(String user_no,String point){
         int res= commentMapper.cutPoint(user_no,point);
+        return res;
+    }
+    public int givePoint(String userNo,String Point){
+
+        int res= commentMapper.givePoint(userNo,Point);
+        System.out.printf("나눔시 user :%s 에게 point :%s 추가\n",userNo,Point);
         return res;
     }
     public int chooseComment(String comment_no){

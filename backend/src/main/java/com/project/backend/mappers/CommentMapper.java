@@ -14,6 +14,8 @@ public interface CommentMapper {
     int deleteComment(CommentDto commentDto);
     int  validateComment(CommentDto commentDto);
     int cutPoint(String user_no,String point);
+
+    int givePoint(String user_no,String point);
     int postChosen(String postNo);
     int nochooseComment(String comment_no);
     int chooseComment(String comment_no);

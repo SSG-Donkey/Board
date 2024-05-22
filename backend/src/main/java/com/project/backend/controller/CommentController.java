@@ -1,6 +1,7 @@
 package com.project.backend.controller;
 
 import com.project.backend.dto.CommentDto;
+import com.project.backend.mappers.PostMapper;
 import com.project.backend.service.CommentService;
 import com.project.backend.service.PostService;
 import lombok.extern.java.Log;
@@ -21,6 +22,7 @@ public class CommentController {
     private CommentService commentService;
     @Autowired
     private PostService postService;
+
 
     @GetMapping("/selectCommentByPostNo")
     public ResponseEntity<List<CommentDto>> selectCommentByPostNo(@RequestParam String postNo){
@@ -101,7 +103,7 @@ public class CommentController {
         int post_status=commentService.postChosen(postNo); // 채택여부 알기
         if(post_status ==0){ //채택 안되어있으면
 
-            int res1=commentService.cutPoint(userNo,point);
+            int res1=commentService.cutPoint(userNo,point); //댓글작성자 포인트차감
             System.out.printf("res1=%d\n",res1); //컷됨
             if(res1==1){
 
@@ -110,6 +112,9 @@ public class CommentController {
                 if(res2==1){
                     int post_no=Integer.parseInt(postNo);
                     int result=postService.finishPost(post_no);
+                    int post_userno1=Integer.parseInt(post_userno);
+                    int point1=Integer.parseInt(point);
+                    int give =commentService.givePoint(post_userno,point); //글작성자 포인트 추가
                     response.put("message", "채택 완료하였습니다.");
                     response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
