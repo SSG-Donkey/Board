@@ -55,11 +55,14 @@ public class CommentController {
     @PostMapping("/deleteComment")
     public Map<String,String> deleteComment(@RequestParam("postNo")String postNo,
                                             @RequestParam("userNo")String userNo,
-                                            @RequestParam("commentNo")String commentNo){
+                                            @RequestParam("commentNo")String commentNo,
+                                            @RequestParam("isChosen")String isChosen){
+
 
         System.out.printf("comment_no = %s , post_no =%s user_no =%s\n",commentNo,postNo,userNo);
 
         int comment_no=Integer.parseInt(commentNo);
+        int cmp=Integer.parseInt(isChosen);
         CommentDto commentDto = new CommentDto();
         commentDto.setPostNo(postNo);
         commentDto.setUserNo(userNo);
@@ -68,6 +71,10 @@ public class CommentController {
 
         Map<String,String> response =new HashMap<>();
         System.out.printf(" res2 결과 :%d\n",res2);
+        if (cmp == 1){
+            response.put("message", "채택된 댓글이라 삭제 불가능합니다");
+            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+        }
         if(comment_no== res2){
             int res1 =commentService.deleteComment(commentDto);
             response.put("message", "댓글 삭제 완료하였습니다.");
