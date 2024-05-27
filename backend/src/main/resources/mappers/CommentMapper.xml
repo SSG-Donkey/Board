@@ -32,7 +32,7 @@
 
     <delete id="deleteComment" parameterType="com.project.backend.dto.CommentDto">
         DELETE FROM comment
-        WHERE comment_no= #{commentNo} and is_chosen=0
+        WHERE comment_no= #{commentNo} AND is_chosen= 0
     </delete>
 
     <update id="cutPoint" parameterType="map">
