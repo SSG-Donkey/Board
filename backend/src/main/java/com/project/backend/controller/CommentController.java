@@ -71,9 +71,15 @@ public class CommentController {
         System.out.printf(" res2 결과 :%d\n",res2);
         if(comment_no== res2){
             int res1 =commentService.deleteComment(commentDto);
-            response.put("message", "댓글 삭제 완료하였습니다.");
-            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            if (res1 ==1){
+                response.put("message", "댓글 삭제 완료하였습니다.");
+                response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
+            }
+            else{
+                response.put("message", "나눔채택된 댓글이라 삭제 불가능합니다.");
+                response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            }
         }
         else{
             response.put("message", "댓글 삭제 실패하였습니다!");
