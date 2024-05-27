@@ -75,17 +75,22 @@ public class CommentController {
             response.put("message", "채택된 댓글이라 삭제 불가능합니다");
             response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
         }
-        if(comment_no== res2){
-            int res1 =commentService.deleteComment(commentDto);
-            response.put("message", "댓글 삭제 완료하였습니다.");
-            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
 
-        }
         else{
-            response.put("message", "댓글 삭제 실패하였습니다!");
-            response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+            if(comment_no== res2){
+                int res1 =commentService.deleteComment(commentDto);
+                response.put("message", "댓글 삭제 완료하였습니다.");
+                response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+
+            }
+            else{
+                response.put("message", "댓글 삭제 실패하였습니다!");
+                response.put("redirectUrl", "/boardDetail.html?postNo=" + postNo);
+
+            }
 
         }
+
 
         return response;
     }
